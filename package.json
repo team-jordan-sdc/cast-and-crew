@@ -1,0 +1,20 @@
+{
+  "name": "cast-and-crew",
+  "version": "1.0.0",
+  "description": "A module for displaying the works of a selected cast/crew member.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fec1-arwen/cast-and-crew.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fec1-arwen/cast-and-crew/issues"
+  },
+  "homepage": "https://github.com/fec1-arwen/cast-and-crew#readme"
+}

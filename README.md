@@ -1,2 +1,2 @@
 # cast-and-crew
-Module for displaying the works of the selected cast/crew member of a featured film
+A module for displaying the works of a selected cast/crew member.
