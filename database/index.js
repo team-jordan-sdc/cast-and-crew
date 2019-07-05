@@ -15,7 +15,6 @@ const movieSchema = new mongoose.Schema(
     vudu_rating: 'number',
     rt_rating: 'number',
     price: 'number',
-    movie_url: 'string',
     thumbnail_url: 'string',
     personnel: [
       {
@@ -40,4 +39,9 @@ const personnelSchema = new mongoose.Schema(
 
 const Movie = mongoose.model('Movie', movieSchema);
 const Personnel = mongoose.model('Personnel', personnelSchema);
+
+/***********
+ * QUERIES *
+ ***********/
+
 
