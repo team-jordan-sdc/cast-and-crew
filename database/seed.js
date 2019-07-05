@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const progress = require('cli-progress');
-const MONGDB_URI = 'mongodb://localhost:27017/castandcrew';
+const MONGODB_URI = 'mongodb://localhost:27017/castandcrew';
 
 /******* PROGRESS BAR *******/
 const bar = new progress.Bar({}, progress.Presets.shades_classic);
@@ -10,7 +10,7 @@ bar.start(100, 0);
 
 
 /******** MONGO CONFIG & SCHEMAS *********/
-mongoose.connect(MONGDB_URI, {useNewUrlParser: true});
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 const movieSchema = new mongoose.Schema(
   {
     title: 'string',
@@ -27,7 +27,18 @@ const movieSchema = new mongoose.Schema(
     ]
   }
 );
+
+const personnelSchema = new mongoose.Schema(
+  {
+    name: 'string',
+    thumbnail_url: 'string',
+    movies: 'array'
+  }
+);
+
 const Movie = mongoose.model('Movie', movieSchema);
+const Personnel = mongoose.model('Personnel', personnelSchema);
+
 /****************************************/
 
 
@@ -59,7 +70,15 @@ const generatePersonnel = (max) => {
     results.push({ id: getRandomNum(max), role: roles[getRandomNum(19)] })
   }
   return results;
-} /**************************************/
+}
+
+// const generateMovies = (max) => {
+//   let results = [];
+//   for (let i = 0; i <= getRandomNum(31); i++) {
+
+//   }
+
+// }; /**************************************/
 
 
 
@@ -74,11 +93,44 @@ let MovieSeed = () => {
     thumbnail_url: `https://mapquiz.app/fec/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
     personnel: generatePersonnel(21)
   }
+};
+
+let PersonnelSeed = () => {
+  return {
+    name: actors[generatePersonnel(21)],
+    thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
+    movies: 'array'
+  }
 }; /**************************************/
 
 
+const generateMoviesForPersonnel = () => {
+  Movie.find().distinct('_id').then((results) => {
 
-/******* DATABASE POPULATOR *******/
+    for (let actor of actors) {
+
+      let currentPersonnel = new Personnel({
+        name: actor,
+        thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
+        movies: []
+      });
+
+      for (let i = 0; i <= getRandomNum(31); i++) { //each cast/crew member will have up to 31 movies
+        currentPersonnel.movies.push(results[getRandomNum(31)]);
+      }
+
+      currentPersonnel.save().then(() => {
+        completed++;
+        if (completed === 122){
+          console.log('Finished seeding!');
+          mongoose.connection.close();
+        }
+      })
+    }
+  })
+}
+
+/******* DATABASE SEEDER *******/
 for (let i = 1; i <= 100; i++) {
   const currentMovie = new Movie(MovieSeed());
   currentMovie.save().then(() => {
@@ -86,8 +138,8 @@ for (let i = 1; i <= 100; i++) {
     bar.update(completed);
     if (completed === 100) {
       bar.stop()
-      mongoose.connection.close();
-      console.log('Finished seeding!');
+      console.log('Seeding personnel...')
+      generateMoviesForPersonnel()
     }
   });
 } /**********************************/
