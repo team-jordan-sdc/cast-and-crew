@@ -64,7 +64,7 @@ const getRandomNum = (max) => {
   return Math.floor(Math.random() * max);
 }
 
-const generatePersonnel = (max) => {
+const generatePersonnelForMovies = (max) => {
   let results = [];
   for (let i = 0; i <= getRandomNum(13); i++) { //each movie will have up to 13 cast/crew members
     results.push({ id: getRandomNum(max), role: roles[getRandomNum(19)] })
@@ -83,7 +83,7 @@ let MovieSeed = () => {
     rt_rating: getRandomNum(101),
     price: `$${getRandomNum(30) + 1}.99`,
     thumbnail_url: `https://mapquiz.app/fec/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
-    personnel: generatePersonnel(21)
+    personnel: generatePersonnelForMovies(21)
   }
 };
 
@@ -104,13 +104,20 @@ let PersonnelSeed = (actor, movieList) => {
 
 
 /******* DATABASE SEEDER *******/
+for (let i = 1; i <= 100; i++) {
+  const currentMovie = new Movie(MovieSeed());
+  currentMovie.save().then(() => {
+    bar.update(++completed);
+    completed === 100 && generateMoviesForPersonnel();
+  });
+}
+
 const generateMoviesForPersonnel = () => {
   Movie.find().distinct('_id').then((movieList) => {
     for (let actor of actors) {
       let currentPerson = new Personnel(PersonnelSeed(actor, movieList));
       currentPerson.save().then(() => {
-        completed++;
-        bar.update(completed);
+        bar.update(++completed);
         if (completed === 122) {
           bar.stop()
           console.log('Finished seeding!');
@@ -119,16 +126,5 @@ const generateMoviesForPersonnel = () => {
       })
     }
   })
-}
-
-for (let i = 1; i <= 100; i++) {
-  const currentMovie = new Movie(MovieSeed());
-  currentMovie.save().then(() => {
-    completed++;
-    bar.update(completed);
-    if (completed === 100) {
-      generateMoviesForPersonnel()
-    }
-  });
-} /**********************************/
+}/**********************************/
 
