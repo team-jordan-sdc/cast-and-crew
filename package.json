@@ -4,10 +4,10 @@
   "description": "A module for displaying the works of a selected cast/crew member.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
-    "seed": "node database/seed.js"
+    "seed": "node -e 'require(\"./database/seeder.js\").seed()'"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "cli-progress": "^2.1.1",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
