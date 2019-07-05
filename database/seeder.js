@@ -21,7 +21,7 @@ const titles = ['Captain America', 'Forrest Gump', 'Gone With The Wind', 'Bird C
 const dates = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 
-/*********** HELPER FUNCTIONS **********/
+/*********** HELPER FUNCTIONS ***********/
 const getRandomNum = (max) => {
   return Math.floor(Math.random() * max);
 }
