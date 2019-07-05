@@ -11,10 +11,10 @@ mongoose.connect(MONGDB_URI, {useNewUrlParser: true});
 const movieSchema = new mongoose.Schema(
   {
     title: 'string',
-    release_date: 'date',
+    release_date: 'string',
     vudu_rating: 'number',
     rt_rating: 'number',
-    price: 'number',
+    price: 'string',
     thumbnail_url: 'string',
     personnel: [
       {
@@ -40,8 +40,10 @@ const personnelSchema = new mongoose.Schema(
 const Movie = mongoose.model('Movie', movieSchema);
 const Personnel = mongoose.model('Personnel', personnelSchema);
 
-/***********
- * QUERIES *
- ***********/
+/*Export models for testing and seeding the database*/
+ module.exports.Movie = Movie;
+ module.exports.Personnel = Personnel;
+/*****************************************************/
 
-
+ module.exports.getMovies = getMovies;
+ module.exports.getPerson = getPerson;
