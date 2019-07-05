@@ -38,7 +38,6 @@ const personnelSchema = new mongoose.Schema(
 
 const Movie = mongoose.model('Movie', movieSchema);
 const Personnel = mongoose.model('Personnel', personnelSchema);
-
 /****************************************/
 
 
@@ -70,7 +69,7 @@ const generatePersonnelForMovies = (max) => {
     results.push({ id: getRandomNum(max), role: roles[getRandomNum(19)] })
   }
   return results;
-}
+}/************************************/
 
 
 
