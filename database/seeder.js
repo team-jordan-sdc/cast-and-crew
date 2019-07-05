@@ -7,25 +7,18 @@ const db = require('./index.js');
 const bar = new progress.Bar({}, progress.Presets.shades_classic);
 let completed = 0;
 bar.start(122, 0);
-/****************************/
 
 
-
-
-/********  SAMPLE PERSONNEL  ********/
+/********  SAMPLE PERSONNEL DATA ********/
 const actors = ["Elvis Presley","John Travolta","John Belushi","George Clooney","Natalie Portman","Scarlett Johannsson","Marlon Brando","Margot Robbie","Will Smith","Chris Evans","Robert Downey Jr","Jon Bon Jovi","Miley Cyrus","Keanu Reeves","Lawrence Fishburne","Samuel L. Jackson","Brad Pitt","Angelina Jolie","Emma Watson","Alan Rickman","Benedict Cumberbatch","Benedict Wong"];
 
 const roles = ['Director', 'Producer', 'Forrest', 'Neo', 'Harry Potter', 'Aragorn', 'A Lone Fish', 'Themself', 'Associate Director', 'Associate Producer', 'Stagehand', 'Yodelist', 'Emily', 'James', 'Sarah', 'Luke Skywalker', 'Gandalf', 'Frodo', 'Arwen', 'Sauron'];
-/**********************************/
 
 
-
-/********  SAMPLE MOVIES  ********/
+/********  SAMPLE MOVIE DATA  ********/
 const titles = ['Captain America', 'Forrest Gump', 'Gone With The Wind', 'Bird Cage', 'The Lord Of The Rings', 'Harry Potter And The Order Of Phoenix', 'Get Smart', 'Die Hard', 'Mission Impossible', 'The Matrix', 'The Martian', 'Interstellar', 'It Might Get Loud', 'Spectre', 'Fat Albert', 'Monty Python And The Holy Grail', 'Die Another Day', 'The Happening', 'Beauty And The Beast', 'Gran Torino', 'Apollo 13', 'War Of The Worlds', 'Hancock', 'Independence Day', `Ender's Game`, 'The Fugitive', 'Birdman', 'Jurassic Park', 'Star Wars: A New Hope', 'The Hobbit: An Unexpected Journey', 'Men In Black'];
 
 const dates = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-/*******************************/
-
 
 
 /*********** HELPER FUNCTIONS **********/
@@ -39,12 +32,10 @@ const generatePersonnelForMovies = (max) => {
     results.push({ id: getRandomNum(max), role: roles[getRandomNum(19)] })
   }
   return results;
-}/************************************/
+}
 
-
-
-/********** DATA GENERATOR *************/
-let MovieSeed = () => {
+/********** OBJECT GENERATOR *************/
+let fakeMovie = () => {
   return {
     title: titles[getRandomNum(31)],
     release_date: `${dates[getRandomNum(12)]} ${getRandomNum(27) + 1}`,
@@ -56,7 +47,7 @@ let MovieSeed = () => {
   }
 };
 
-let PersonnelSeed = (actor, movieList) => {
+let fakePerson = (actor, movieList) => {
   let person = {
     name: actor,
     thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
@@ -68,25 +59,28 @@ let PersonnelSeed = (actor, movieList) => {
   }
 
   return person;
-}; /**************************************/
-
-
+};
 
 /******* DATABASE SEEDER *******/
+/* NEEDS REFACTORING! Todo: Kill the mongoose connection once fully seeded w/o interfering with Jest tests */
+
 const seed = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => { //we want async nature for our tests
+
     for (let i = 1; i <= 100; i++) {
-      const currentMovie = new db.Movie(MovieSeed());
+      const currentMovie = new db.Movie(fakeMovie());
       currentMovie.save().then(() => {
         bar.update(++completed);
         completed === 100 && generateMoviesForPersonnel();
       });
+
     }
 
     const generateMoviesForPersonnel = () => {
-      db.Movie.find().distinct('_id').then((movieList) => {
+      db.Movie.find().distinct('_id').then((movieList) => { //gets random movie IDs to assign to personnel
+
         for (let actor of actors) {
-          let currentPerson = new db.Personnel(PersonnelSeed(actor, movieList));
+          let currentPerson = new db.Personnel(fakePerson(actor, movieList));
           currentPerson.save().then(() => {
             bar.update(++completed);
             if (completed === 122) {
@@ -96,6 +90,7 @@ const seed = () => {
             }
           })
         }
+
       })
     }
   });
