@@ -5,7 +5,7 @@ const MONGODB_URI = 'mongodb://localhost:27017/castandcrew';
 /******* PROGRESS BAR *******/
 const bar = new progress.Bar({}, progress.Presets.shades_classic);
 let completed = 0;
-bar.start(100, 0);
+bar.start(122, 0);
 /****************************/
 
 
@@ -72,14 +72,6 @@ const generatePersonnel = (max) => {
   return results;
 }
 
-// const generateMovies = (max) => {
-//   let results = [];
-//   for (let i = 0; i <= getRandomNum(31); i++) {
-
-//   }
-
-// }; /**************************************/
-
 
 
 /********** DATA GENERATOR *************/
@@ -95,33 +87,32 @@ let MovieSeed = () => {
   }
 };
 
-let PersonnelSeed = () => {
-  return {
-    name: actors[generatePersonnel(21)],
+let PersonnelSeed = (actor, movieList) => {
+  let person = {
+    name: actor,
     thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
-    movies: 'array'
+    movies: []
   }
+
+  for (let i = 0; i <= getRandomNum(31); i++) { //each cast/crew member will have up to 31 movies
+    person.movies.push(movieList[getRandomNum(31)]);
+  }
+
+  return person;
 }; /**************************************/
 
 
+
+/******* DATABASE SEEDER *******/
 const generateMoviesForPersonnel = () => {
-  Movie.find().distinct('_id').then((results) => {
-
+  Movie.find().distinct('_id').then((movieList) => {
     for (let actor of actors) {
-
-      let currentPersonnel = new Personnel({
-        name: actor,
-        thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
-        movies: []
-      });
-
-      for (let i = 0; i <= getRandomNum(31); i++) { //each cast/crew member will have up to 31 movies
-        currentPersonnel.movies.push(results[getRandomNum(31)]);
-      }
-
-      currentPersonnel.save().then(() => {
+      let currentPerson = new Personnel(PersonnelSeed(actor, movieList));
+      currentPerson.save().then(() => {
         completed++;
-        if (completed === 122){
+        bar.update(completed);
+        if (completed === 122) {
+          bar.stop()
           console.log('Finished seeding!');
           mongoose.connection.close();
         }
@@ -130,18 +121,14 @@ const generateMoviesForPersonnel = () => {
   })
 }
 
-/******* DATABASE SEEDER *******/
 for (let i = 1; i <= 100; i++) {
   const currentMovie = new Movie(MovieSeed());
   currentMovie.save().then(() => {
     completed++;
     bar.update(completed);
     if (completed === 100) {
-      bar.stop()
-      console.log('Seeding personnel...')
       generateMoviesForPersonnel()
     }
   });
 } /**********************************/
-
 
