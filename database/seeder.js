@@ -79,8 +79,9 @@ const seed = () => {
     const generateMoviesForPersonnel = () => {
       db.Movie.find().distinct('_id').then((movieList) => { //gets random movie IDs to assign to personnel
 
-        for (let actor of actors) {
-          let currentPerson = new db.Personnel(fakePerson(actor, movieList));
+        for (let i = 0; i < actors.length; i++) {
+          let currentPerson = new db.Personnel(fakePerson(actors[i], movieList));
+          currentPerson._id = i;
           currentPerson.save().then(() => {
             bar.update(++completed);
             if (completed === 122) {
