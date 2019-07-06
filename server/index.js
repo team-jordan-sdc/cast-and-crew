@@ -11,6 +11,13 @@ app.get('/api/personnel', (req, res) => {
   db.getPersonnel(req.body.id)
     .then(results => res.send(results))
     .catch(err => console.log(err))
-})
+});
+
+app.get('/api/movies', (req, res) => {
+  db.getMovies(req.body.id)
+    .then(results => results.filter(movie => movie.personnel.some(person => person.id === req.body.id)))
+    .then(results => res.send(results))
+    .catch(err => console.log(err))
+});
 
 app.listen(PORT, () => `Listening on port ${3000}!`);
