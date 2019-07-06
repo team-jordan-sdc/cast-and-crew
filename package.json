@@ -1,0 +1,41 @@
+{
+  "name": "cast-and-crew",
+  "version": "1.0.0",
+  "description": "A module for displaying the works of a selected cast/crew member.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "server-dev": "nodemon server/index.js",
+    "react-dev": "webpack -d --watch",
+    "seed": "node -e 'require(\"./database/seeder.js\").seed()'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fec1-arwen/cast-and-crew.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fec1-arwen/cast-and-crew/issues"
+  },
+  "homepage": "https://github.com/fec1-arwen/cast-and-crew#readme",
+  "dependencies": {
+    "bluebird": "^3.5.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "cli-progress": "^2.1.1",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
+}
