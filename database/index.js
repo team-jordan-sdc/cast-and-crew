@@ -27,6 +27,7 @@ const movieSchema = new mongoose.Schema(
 
 const personnelSchema = new mongoose.Schema(
   {
+    _id: 'number',
     name: 'string',
     thumbnail_url: 'string',
     movies: 'array'
