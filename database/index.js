@@ -45,15 +45,14 @@ const Personnel = mongoose.model('Personnel', personnelSchema);
  ***********/
 
 const getPersonnel = (movie) => {
-  return Personnel.find({movies: movie}).exec();
+  return Personnel.find({movies: mongoose.Types.ObjectId(movie)}).exec();
 }
 
-
-const getMovies = (personId) => {
-
+const getMovies = (person) => {
+  return Movie.find().exec();
 }
 
-/*Export schemas for testing and seeding the database*/
+/* Export schemas for testing and seeding the database */
  module.exports.Movie = Movie;
  module.exports.Personnel = Personnel;
 /*****************************************************/
