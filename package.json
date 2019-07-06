@@ -35,6 +35,7 @@
     "cli-progress": "^2.1.1",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
+    "supertest": "^4.0.2",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   }
