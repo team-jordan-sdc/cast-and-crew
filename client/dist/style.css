@@ -1,0 +1,19 @@
+body{
+  background-color: #041c2c;
+}
+
+.person{
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.name{
+  color: rgb(182, 182, 182);
+  position: relative;
+  left: 0;
+  right: -1px;
+  bottom: -10px;
+  font-weight: 100;
+  font-size: 14px;
+  font-family: sans-serif;
+}
