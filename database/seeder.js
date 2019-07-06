@@ -81,7 +81,7 @@ const seed = () => {
 
         for (let i = 0; i < actors.length; i++) {
           let currentPerson = new db.Personnel(fakePerson(actors[i], movieList));
-          currentPerson._id = i;
+          currentPerson._id = i + 1;
           currentPerson.save().then(() => {
             bar.update(++completed);
             if (completed === 122) {
