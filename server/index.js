@@ -14,12 +14,7 @@ app.get('/api/personnel', (req, res) => {
 });
 
 app.get('/api/movies', (req, res) => {
-  req.query.id && db.getMovies(req.query.id)
-    .then(results => results.filter(movie => movie.personnel.some(person => person.id === req.query.id)))
-    .then(results => res.send(results))
-    .catch(err => console.log(err))
-
-  req.query.feature && db.getMovies()
+  db.getMovies()
     .then(results => res.send(results[Math.floor(Math.random() * 99)]))
     .catch(err => console.log(err))
 });
