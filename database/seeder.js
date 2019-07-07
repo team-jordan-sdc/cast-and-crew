@@ -38,11 +38,13 @@ const generatePersonnelForMovies = (max, personnelList) => {
 
 const fakePersonnel = () => {
   let fakePersonnel = [];
+  var count = 1;
   for (actor of actors) {
     fakePersonnel.push({
       name: actor,
-      thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
+      thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${count}.jpeg`,
     });
+    count < 16 && count++;
   }
   return fakePersonnel
 }
