@@ -2,6 +2,16 @@ body{
   background-color: #041c2c;
 }
 
+#carousel_container{
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+#carousel{
+  height: 280px;
+  transition: transform .5s ease;
+}
+
 .person{
   display: inline-block;
   margin-right: 20px;
