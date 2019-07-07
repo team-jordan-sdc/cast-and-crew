@@ -9,12 +9,10 @@ class App extends React.Component {
       personnel: [],
       featuredMovie: {},
     }
-    this.getPersonnel = this.getPersonnel.bind(this);
   }
 
   componentDidMount(){
-    this.getFeaturedMovie('feature=true')
-      .then(() => this.getPersonnel())
+    this.getFeaturedMovie('feature=true');
   }
 
   getFeaturedMovie(querystring){
@@ -24,15 +22,7 @@ class App extends React.Component {
     })
       .then(results => results.json())
       .then(results => this.setState({ featuredMovie: results }))
-  }
-
-  getPersonnel(){
-    fetch(`/api/personnel?id=${this.state.featuredMovie._id}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(results => results.json())
-      .then(results => this.setState({ personnel: results }))
+      .then(() => this.setState({personnel: this.state.featuredMovie.personnel}));
   }
 
   render() {
