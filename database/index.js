@@ -48,8 +48,8 @@ const getPersonnel = (movie) => {
   return Personnel.find({movies: mongoose.Types.ObjectId(movie)}).exec();
 }
 
-const getMovies = (person) => {
-  return Movie.find().exec();
+const getMovies = () => {
+  return Movie.find().populate('personnel._id').exec();
 }
 
 /* Export schemas for testing and seeding the database */
