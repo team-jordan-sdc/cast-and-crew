@@ -7,18 +7,27 @@ class App extends React.Component {
     super(props);
     this.state = {
       personnel: [],
-      currentMovie: '5d20367ae5c39e473267de0f'
+      featuredMovie: [],
     }
     this.getPersonnel = this.getPersonnel.bind(this);
-    this.getMovies = this.getMovies.bind(this);
   }
 
   componentDidMount(){
-    this.getPersonnel();
+    this.getFeaturedMovie('feature=true')
+      .then(() => this.getPersonnel())
+  }
+
+  getFeaturedMovie(querystring){
+    return fetch(`/api/movies?${querystring}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(results => results.json())
+      .then(results => this.setState({ featuredMovie: results }))
   }
 
   getPersonnel(){
-    fetch(`/api/personnel?id=${this.state.currentMovie}`, {
+    fetch(`/api/personnel?id=${this.state.featuredMovie._id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -26,19 +35,10 @@ class App extends React.Component {
       .then(results => this.setState({ personnel: results }))
   }
 
-  getMovies(){
-    fetch('/api/movies', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(results => results.json())
-      .then(results => this.setState({ movies: results }))
-  }
-
   render() {
     return (
       <div className="container">
-        <PersonnelCarousel personnel={this.state.personnel} getMovies={this.getMovies}/>
+        <PersonnelCarousel personnel={this.state.personnel}/>
       </div>
     )
   }
