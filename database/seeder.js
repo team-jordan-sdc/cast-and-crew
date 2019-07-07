@@ -28,7 +28,7 @@ const getRandomNum = (max) => {
 
 const generatePersonnelForMovies = (max) => {
   let results = [];
-  for (let i = 0; i <= getRandomNum(13); i++) { //each movie will have up to 13 cast/crew members
+  for (let i = 0; i <= getRandomNum(25) + 10; i++) { //each movie will have at least 10 members
     results.push({ id: getRandomNum(max), role: roles[getRandomNum(19)] })
   }
   return results;
@@ -47,15 +47,22 @@ let fakeMovie = () => {
   }
 };
 
-let fakePerson = (actor, movieList) => {
+let fakePerson = (id, actor, movieList) => {
   let person = {
+    _id: id,
     name: actor,
     thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${getRandomNum(15) + 1}.jpeg`,
     movies: []
   }
 
   for (let i = 0; i <= getRandomNum(31); i++) { //each cast/crew member will have up to 31 movies
-    person.movies.push(movieList[getRandomNum(31)]);
+    person.movies = movieList
+      .filter(movie => movie.personnel
+      .some(person => person.id === id))
+      .reduce((acc, next) => {
+        acc.push(next._id);
+        return acc;
+      }, []);
   }
 
   return person;
@@ -77,11 +84,10 @@ const seed = () => {
     }
 
     const generateMoviesForPersonnel = () => {
-      db.Movie.find().distinct('_id').then((movieList) => { //gets random movie IDs to assign to personnel
+      db.Movie.find().then((movieList) => {
 
         for (let i = 0; i < actors.length; i++) {
-          let currentPerson = new db.Personnel(fakePerson(actors[i], movieList));
-          currentPerson._id = i + 1;
+          let currentPerson = new db.Personnel(fakePerson(i, actors[i], movieList));
           currentPerson.save().then(() => {
             bar.update(++completed);
             if (completed === 122) {
