@@ -44,8 +44,8 @@ const Personnel = mongoose.model('Personnel', personnelSchema);
  * QUERIES *
  ***********/
 
-const getPersonnel = (movie) => {
-  return Personnel.find({movies: mongoose.Types.ObjectId(movie)}).exec();
+const getPersonnel = (id) => {
+  return Movie.find().where('personnel._id').equals(id).exec();
 }
 
 const getMovies = () => {
