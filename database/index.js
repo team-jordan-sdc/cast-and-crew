@@ -18,7 +18,7 @@ const movieSchema = new mongoose.Schema(
     thumbnail_url: 'string',
     personnel: [
       {
-        id: 'number',
+        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Personnel'},
         role: 'string'
       },
     ]
@@ -27,10 +27,9 @@ const movieSchema = new mongoose.Schema(
 
 const personnelSchema = new mongoose.Schema(
   {
-    _id: 'number',
+    _id: 'ObjectId',
     name: 'string',
     thumbnail_url: 'string',
-    movies: 'array'
   }
 );
 
@@ -57,6 +56,5 @@ const getMovies = (person) => {
  module.exports.Movie = Movie;
  module.exports.Personnel = Personnel;
 /*****************************************************/
-
  module.exports.getMovies = getMovies;
  module.exports.getPersonnel = getPersonnel;
