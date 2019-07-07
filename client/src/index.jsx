@@ -7,7 +7,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       personnel: [],
-      featuredMovie: [],
+      featuredMovie: {},
     }
     this.getPersonnel = this.getPersonnel.bind(this);
   }
@@ -36,11 +36,11 @@ class App extends React.Component {
   }
 
   render() {
-    return (
+    return this.state.personnel.length ? (
       <div className="container">
-        <PersonnelCarousel personnel={this.state.personnel}/>
+        <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} />
       </div>
-    )
+    ) : <div>Loading...</div>
   }
 
 }
