@@ -17,3 +17,20 @@ body{
   font-size: 14px;
   font-family: sans-serif;
 }
+
+.role{
+  color: rgb(182, 182, 182);
+  position: relative;
+  left: 0;
+  right: -1px;
+  bottom: -10px;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+img:hover{
+  opacity: .7;
+  transition: .25s ease-in-out;
+}
