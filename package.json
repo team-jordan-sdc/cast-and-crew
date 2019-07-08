@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/fec1-arwen/cast-and-crew#readme",
   "dependencies": {
+    "@babel/runtime": "^7.5.2",
     "bluebird": "^3.5.5",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
     "@babel/preset-env": "^7.5.0",
     "@babel/preset-react": "^7.0.0",
     "babel-jest": "^24.8.0",
