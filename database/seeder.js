@@ -19,6 +19,7 @@ const roles = ['Director', 'Producer', 'Forrest', 'Neo', 'Harry Potter', 'Aragor
 const titles = ['Captain America', 'Forrest Gump', 'Gone With The Wind', 'Bird Cage', 'The Lord Of The Rings', 'Harry Potter And The Order Of Phoenix', 'Get Smart', 'Die Hard', 'Mission Impossible', 'The Matrix', 'The Martian', 'Interstellar', 'It Might Get Loud', 'Spectre', 'Fat Albert', 'Monty Python And The Holy Grail', 'Die Another Day', 'The Happening', 'Beauty And The Beast', 'Gran Torino', 'Apollo 13', 'War Of The Worlds', 'Hancock', 'Independence Day', `Ender's Game`, 'The Fugitive', 'Birdman', 'Jurassic Park', 'Star Wars: A New Hope', 'The Hobbit: An Unexpected Journey', 'Men In Black'];
 
 const dates = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const ratings = ['PG-13', 'R', 'TV-PG', 'NR', 'PG'];
 
 
 /*********** HELPER FUNCTIONS ***********/
@@ -54,6 +55,8 @@ let fakeMovie = (personnelList) => {
     title: titles[getRandomNum(31)],
     release_date: `${dates[getRandomNum(12)]} ${getRandomNum(27) + 1}`,
     vudu_rating: getRandomNum(5) + 1,
+    runtime: `${getRandomNum(40) + 100} min`,
+    rating: ratings[getRandomNum(5)],
     rt_rating: getRandomNum(101),
     price: `$${getRandomNum(30) + 1}.99`,
     thumbnail_url: `https://mapquiz.app/fec/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
