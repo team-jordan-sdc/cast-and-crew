@@ -13,6 +13,7 @@ class PersonnelCarousel extends React.Component {
     this.moveBackward = this.moveBackward.bind(this);
   }
 
+  /* Restrict the carousel from moving too far backwards */
   moveBackward(){
     if (this.state.position + 800 > 0) {
       this.setState({position: 0});
@@ -21,6 +22,8 @@ class PersonnelCarousel extends React.Component {
     }
   };
 
+  /* Restrict the carousel from moving too far forward. Its left position
+     should not extend further than width of carousel - width of window. */
   moveForward(){
     if(($('#personnel_carousel').position().left - 800) * -1 > $('#personnel_carousel').width() - $(window).width()) {
       this.setState({position: ($('#personnel_carousel').width() - $(window).width()) * -1});
