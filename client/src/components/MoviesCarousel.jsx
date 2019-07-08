@@ -12,13 +12,15 @@ class MovieCarousel extends React.Component {
     this.moveForward = this.moveForward.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
   }
-
+  /* When App.jsx passes new movie information (as a prop), rerender the component. 
+     Might be able to replace render() code to use props only - will try later. */
   componentDidUpdate(prevProps) {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
       this.setState({movies: this.props.featuredPersonnel, position: 0});
     }
   }
 
+  /* Restrict the carousel from moving too far backwards */
   moveBackward() {
     if (this.state.position + 800 > 0) {
       this.setState({position: 0});
@@ -27,6 +29,8 @@ class MovieCarousel extends React.Component {
     }
   };
 
+  /* Restrict the carousel from moving too far forward. Its left position 
+     should not extend further than width of carousel - width of window. */
   moveForward() {
     if(($('#movies_carousel').position().left - 800) * -1 > $('#movies_carousel').width() - $(window).width()) {
       this.setState({position: ($('#movies_carousel').width() - $(window).width()) * -1});
@@ -36,6 +40,7 @@ class MovieCarousel extends React.Component {
   }
 
   render() {
+    /* Only render carousel if state is up to date */
     return this.state.movies ? (
       <div className="carousel_container">
         <div id="m_backward" onClick={this.moveBackward}></div>
