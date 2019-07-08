@@ -15,7 +15,7 @@ class MovieCarousel extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
-      this.setState({movies: this.props.featuredPersonnel});
+      this.setState({movies: this.props.featuredPersonnel, position: 0});
     }
   }
 
