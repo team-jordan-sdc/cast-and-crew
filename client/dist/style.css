@@ -54,6 +54,35 @@ body{
   height: 202px;
 }
 
+.movie_info{
+  width: 132px;
+  word-wrap: break-word;
+  height: 200px;
+  color: white;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  position: absolute;
+  padding: 5px 5px 0;
+  background: rgba(0, 0, 0, .8);
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+}
+
+.title{
+  white-space: normal;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.text{
+  font-size: 13px;
+}
+
+.movie_info:hover{
+  opacity: 1;
+}
+
 .carousel_container:hover #p_backward{
   transition: 2s ease-in-out;
   display: block;
@@ -101,7 +130,7 @@ body{
   font-size: 12px;
 }
 
-img:hover{
+.headshot:hover{
   opacity: .7;
   transition: .25s ease-in-out;
 }
