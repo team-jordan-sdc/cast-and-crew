@@ -12,7 +12,7 @@ class MovieCarousel extends React.Component {
     this.moveForward = this.moveForward.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
   }
-  /* When App.jsx passes new movie information (as a prop), rerender the component. 
+  /* When App.jsx passes new movie information (as a prop), rerender the component.
      Might be able to replace render() code to use props only - will try later. */
   componentDidUpdate(prevProps) {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
@@ -29,7 +29,7 @@ class MovieCarousel extends React.Component {
     }
   };
 
-  /* Restrict the carousel from moving too far forward. Its left position 
+  /* Restrict the carousel from moving too far forward. Its left position
      should not extend further than width of carousel - width of window. */
   moveForward() {
     if(($('#movies_carousel').position().left - 800) * -1 > $('#movies_carousel').width() - $(window).width()) {
