@@ -40,7 +40,7 @@ const generatePersonnelForMovies = (max, personnelList) => {
 const fakePersonnel = () => {
   let fakePersonnel = [];
   var count = 1;
-  for (actor of actors) {
+  for (let actor of actors) {
     fakePersonnel.push({
       name: actor,
       thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${count}.jpeg`,
