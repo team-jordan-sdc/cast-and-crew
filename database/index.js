@@ -13,6 +13,8 @@ const movieSchema = new mongoose.Schema(
     title: 'string',
     release_date: 'string',
     vudu_rating: 'number',
+    runtime: 'string',
+    rating: 'string',
     rt_rating: 'number',
     price: 'string',
     thumbnail_url: 'string',
