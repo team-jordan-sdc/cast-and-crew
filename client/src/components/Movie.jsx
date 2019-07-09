@@ -9,8 +9,10 @@ const Movie = ({ movie }) => (
         <div className="infoplate_text rounded">{movie.rating}</div>
         <div className="infoplate_text rounded">{movie.runtime}</div>
       </div>
-      <div className="container">
+      <div className="rating_container">
         <div className="star_rating"><img src="https://mapquiz.app/fec/infoplate/Star_empty.svg"></img></div>
+        <div className="rt_icon"><img src="https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg"></img></div>
+        <div className="rt_rating">{movie.rt_rating}%</div>
       </div>
       <div className="text">{`Rent/Buy from ${movie.price}`}</div>
     </div>

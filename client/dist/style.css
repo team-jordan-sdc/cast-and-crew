@@ -60,7 +60,7 @@ body{
   height: 198px;
   color: white;
   font-family: sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 12px;
   position: absolute;
   padding: 5px 5px 0;
@@ -101,7 +101,19 @@ body{
 }
 
 .star_rating{
-  margin: 8px 0 5px 0;
+  margin: 10px 1px 7px 0;
+}
+
+.rt_icon{
+  transform: scale(.8);
+  display: flex;
+}
+
+.rating_container{
+  margin: 5px 0 5px 0;
+  align-items: center;
+  height: 14px;
+  display: flex;
 }
 
 .movie_info:hover{
