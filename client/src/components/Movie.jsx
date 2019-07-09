@@ -10,13 +10,22 @@ const Movie = ({ movie }) => (
         <div className="infoplate_text rounded">{movie.runtime}</div>
       </div>
       <div className="rating_container">
-        <div className="star_rating"><img src="https://mapquiz.app/fec/infoplate/Star_empty.svg"></img></div>
-        <div className="rt_icon"><img src="https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg"></img></div>
+        <div className="star_rating_empty">
+          <img src="https://mapquiz.app/fec/infoplate/Star_empty.svg"></img>
+        </div>
+        <div className="star_rating_full" style={{ width: `${movie.vudu_rating * 17.75}px` }}>
+          <img src="https://mapquiz.app/fec/infoplate/Star_full.svg"></img>
+        </div>
+        <div className="rt_icon">
+          <img src="https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg"></img>
+        </div>
         <div className="rt_rating">{movie.rt_rating}%</div>
       </div>
       <div className="text">{`Rent/Buy from ${movie.price}`}</div>
     </div>
-    <div className="movie_thumbnail"><img src={movie.thumbnail_url}></img></div>
+    <div className="movie_thumbnail">
+      <img src={movie.thumbnail_url}></img>
+    </div>
   </div>
 )
 
