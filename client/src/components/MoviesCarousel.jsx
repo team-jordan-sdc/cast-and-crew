@@ -49,7 +49,7 @@ class MovieCarousel extends React.Component {
         </div>
         <div id="m_forward" onClick={this.moveForward}></div>
       </div>
-    ) : <div></div>
+    ) : null
   }
 
 }
