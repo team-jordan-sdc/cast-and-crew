@@ -3,7 +3,7 @@ const request = require('supertest');
 describe('Express server', () => {
 
   test('should respond to a valid GET request to /api/movies', async () => {
-    const response = await request('http://127.0.0.1:3000').get('/api/movies');
+    const response = await request('http://127.0.0.1:3000').get('/api/movies?id=1');
     expect(response.statusCode).toBe(200);
   })
 

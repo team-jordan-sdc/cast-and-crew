@@ -28,7 +28,6 @@ describe('Database seeder', () => {
 
   test('should create movie documents with the correct properties', () => {
    expect(personnel[0].name).toBeTruthy();
-   expect(personnel[0].movies).toBeTruthy();
    expect(personnel[0].thumbnail_url).toBeTruthy();
   });
 

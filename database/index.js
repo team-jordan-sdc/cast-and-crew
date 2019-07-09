@@ -13,12 +13,14 @@ const movieSchema = new mongoose.Schema(
     title: 'string',
     release_date: 'string',
     vudu_rating: 'number',
+    runtime: 'string',
+    rating: 'string',
     rt_rating: 'number',
     price: 'string',
     thumbnail_url: 'string',
     personnel: [
       {
-        id: 'number',
+        _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Personnel'},
         role: 'string'
       },
     ]
@@ -27,9 +29,9 @@ const movieSchema = new mongoose.Schema(
 
 const personnelSchema = new mongoose.Schema(
   {
+    _id: 'ObjectId',
     name: 'string',
     thumbnail_url: 'string',
-    movies: 'array'
   }
 );
 
@@ -44,18 +46,17 @@ const Personnel = mongoose.model('Personnel', personnelSchema);
  * QUERIES *
  ***********/
 
-const getPersonnel = (movie) => {
-  return Personnel.find({movies: mongoose.Types.ObjectId(movie)}).exec();
+const getPersonnel = (id) => {
+  return Movie.find().where('personnel._id').equals(id).exec();
 }
 
-const getMovies = (person) => {
-  return Movie.find().exec();
+const getMovies = () => {
+  return Movie.find().populate('personnel._id').exec();
 }
 
 /* Export schemas for testing and seeding the database */
  module.exports.Movie = Movie;
  module.exports.Personnel = Personnel;
 /*****************************************************/
-
  module.exports.getMovies = getMovies;
  module.exports.getPersonnel = getPersonnel;

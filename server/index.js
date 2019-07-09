@@ -8,15 +8,14 @@ app.use(express.static('./client/dist'));
 app.use(express.json());
 
 app.get('/api/personnel', (req, res) => {
-  db.getPersonnel(req.body.id)
+  db.getPersonnel(req.query.id)
     .then(results => res.send(results))
     .catch(err => console.log(err))
 });
 
 app.get('/api/movies', (req, res) => {
-  db.getMovies(req.body.id)
-    .then(results => results.filter(movie => movie.personnel.some(person => person.id === req.body.id)))
-    .then(results => res.send(results))
+  db.getMovies()
+    .then(results => res.send(results[Math.floor(Math.random() * 99)]))
     .catch(err => console.log(err))
 });
 
