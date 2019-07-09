@@ -6,14 +6,13 @@ class MovieCarousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: this.props.featuredPersonnel,
+      movies: null,
       position: 0
     }
     this.moveForward = this.moveForward.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
   }
-  /* When App.jsx passes new movie information (as a prop), rerender the component.
-     Might be able to replace render() code to use props only - will try later. */
+  /* When App.jsx passes new movie information (as a prop), rerender the component. */
   componentDidUpdate(prevProps) {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
       this.setState({movies: this.props.featuredPersonnel, position: 0});
