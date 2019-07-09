@@ -19,4 +19,4 @@ app.get('/api/movies', (req, res) => {
     .catch(err => console.log(err))
 });
 
-app.listen(PORT, () => `Listening on port ${3000}!`);
+app.listen(PORT, () => `Listening on port ${PORT}!`);
