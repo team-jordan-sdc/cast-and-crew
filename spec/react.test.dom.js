@@ -1,16 +1,12 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import App from '../client/src/App.jsx';
-import PersonnelCarousel from '../client/src/components/PersonnelCarousel.jsx';
-import MoviesCarousel from '../client/src/components/MoviesCarousel.jsx';
-import Personnel from '../client/src/components/Person.jsx';
-import Movies from '../client/src/components/Movie.jsx';
-
 
 describe('App.jsx component', () => {
+
 //This should be in its own file, but moving the
 //object prevents the json property from being
-//called as a function...  I don't know why
+//called as a function...  I don't know why.
   const promise = Promise.resolve({
     "json": function () { return this }, //mock fetch's response.json() function
     "_id": "5d218036d379e56725e8686b",
@@ -23,46 +19,58 @@ describe('App.jsx component', () => {
     "personnel": [
       {
         "_id": {
-          "_id": "5d23dde3dd625cbe9b368948",
-          "name": "Alan Rickman",
+          "_id": "1",
+          "name": "Will",
           "thumbnail_url": "https://mapquiz.app/fec/headshots/headshot16.jpeg",
         },
         "role": "Yodelist",
       },
+      {
+        "_id": {
+          "_id": "2",
+          "name": "Resen",
+          "thumbnail_url": "https://mapquiz.app/fec/headshots/headshot16.jpeg",
+        },
+        "role": "Lead Guitarist",
+      },
     ],
   });
 
-  global.fetch = () => promise; //TODO: use Jest's native mock functionality.
+  global.fetch = jest.fn(() => promise);
+  let wrapper = mount(<App/>);
 
-
-
-  test('App should mount without returning an error', () => {
-    mount(<App />);
+  /* If the App mounts successfully, remount before each test */
+  beforeEach(() => {
+    wrapper.mount();
   })
 
-  test('App should display "Loading..." text while retrieving data', () => {
-    const wrapper = mount(<App/>);
+  test('App should display "Loading..." text before retrieving data', async () => {
+    await wrapper.unmount(); //the test should run before the mock data is fetched
+    await wrapper.mount();
     expect(wrapper.text()).toContain('Loading...')
   })
 
-  test('App should have its state set to the fetched data one retrieved', () => {
-    const wrapper = mount(<App />);
-    return promise
-      .then(() => wrapper.update())
-      .then(() => expect(wrapper.state().featuredMovie.title).toBe('The Matrix'))
+  test('App state should be set to retrieved movie data', () => {
+   expect(wrapper.state().featuredMovie.title).toBe('The Matrix')
   })
 
-  test('App should render a carousel once data is retrieved', (done) => {
-    const wrapper = mount(<App />);
-    return promise
-      .then(() => wrapper.update())
-      .then(() => setTimeout(async () => {
-        await wrapper.update();
-        console.log(wrapper.debug());
-        done();
-      }, 4000))
-      .then(() => console.log(wrapper.debug()))
+  test('PersonnelCarousel should render once data is retrieved', () => {
+    expect(wrapper.find('div.carousel_container').html()).toContain('id="personnel_carousel');
   })
+
+  test('PersonnelCarousel should contain Person components', () => {
+    expect(wrapper.find('Person')).toHaveLength(2);
+  })
+
+  test('MovieCarousel should not have any children before a click event', () => {
+    expect(wrapper.find('MovieCarousel').html()).toBe(null);
+  })
+
+
+
+
+
+
 
 
 
