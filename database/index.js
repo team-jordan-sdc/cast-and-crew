@@ -48,15 +48,16 @@ const Personnel = mongoose.model('Personnel', personnelSchema);
 
 const getPersonnel = (id) => {
   return Movie.find().where('personnel._id').equals(id).exec();
-}
+};
 
 const getMovies = () => {
   return Movie.find().populate('personnel._id').exec();
-}
+};
 
 /* Export schemas for testing and seeding the database */
- module.exports.Movie = Movie;
- module.exports.Personnel = Personnel;
-/*****************************************************/
- module.exports.getMovies = getMovies;
- module.exports.getPersonnel = getPersonnel;
+module.exports = {
+  Movie,
+  Personnel,
+  getMovies,
+  getPersonnel
+}
