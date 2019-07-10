@@ -41,12 +41,15 @@ class MovieCarousel extends React.Component {
   render() {
     /* Only render carousel if state is up to date */
     return this.state.movies ? (
-      <div className="carousel_container">
-        <div id="m_backward" onClick={this.moveBackward}></div>
-        <div id="movies_carousel" style={{ transform: `translate3d(${this.state.position}px, 0px, 0px)` }}>
-          {this.state.movies.map(movie => <div className="movie"><Movie movie={movie} /></div>)}
+      <div className="container">
+        <span className="main_title">Movies featuring {this.props.selectedPersonnel}</span>
+        <div className="carousel_container">
+          <div id="m_backward" onClick={this.moveBackward}></div>
+          <div id="movies_carousel" style={{ transform: `translate3d(${this.state.position}px, 0px, 0px)` }}>
+            {this.state.movies.map(movie => <div className="movie"><Movie movie={movie} /></div>)}
+          </div>
+          <div id="m_forward" onClick={this.moveForward}></div>
         </div>
-        <div id="m_forward" onClick={this.moveForward}></div>
       </div>
     ) : null
   }
