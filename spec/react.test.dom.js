@@ -10,9 +10,9 @@ describe('App.jsx component', () => {
     wrapper.mount();
   })
 
-  test('App should display "Loading..." text before retrieving data', async () => {
-    await wrapper.unmount(); //the test should run before the mock data is fetched
-    await wrapper.mount();
+  test('App should display "Loading..." text before retrieving data', () => {
+    wrapper.unmount(); //the test should run before the mock data is fetched
+    wrapper.mount();
     expect(wrapper.text()).toContain('Loading...')
   })
 
