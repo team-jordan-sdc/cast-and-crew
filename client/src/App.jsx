@@ -9,7 +9,8 @@ class App extends React.Component {
     this.state = {
       personnel: [],
       featuredMovie: {},
-      featuredPersonnel: null
+      featuredPersonnel: null,
+      selectedPersonnel: null
     };
   }
 
@@ -28,19 +29,19 @@ class App extends React.Component {
   }
 
   getPersonnelInfo(id) {
-    fetch(`/api/personnel?id=${id}`, {
+    fetch(`/api/personnel?id=${id._id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
     .then(results => results.json())
-    .then(results => this.setState({featuredPersonnel: results}))
+    .then(results => this.setState({featuredPersonnel: results, selectedPersonnel: id.name}))
   }
 
   render() {
     return this.state.personnel.length ? (
       <div className="container">
         <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)}/>
-        <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} />
+        <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel}/>
       </div>
     ) : <div>Loading...</div>
   }

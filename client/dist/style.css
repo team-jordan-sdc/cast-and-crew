@@ -2,6 +2,15 @@ body{
   background-color: #041c2c;
 }
 
+.main_title{
+  display: flex;
+  font-size: 19px;
+  font-weight: 300;
+  color: white;
+  font-family: sans-serif;
+  margin: 10px 0 10px 0;
+}
+
 .carousel_container{
   overflow-x: hidden;
   white-space: nowrap;
@@ -17,10 +26,11 @@ body{
 
 #movies_carousel{
   height: 206px;
+  animation: fadein .5s;
 }
 
 #p_backward, #m_backward{
-  background-image: url(https://www.vudu.com/content/images/pov_left_arrow.svg);
+  background-image: url(https://mapquiz.app/fec/infoplate/pov_left_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
@@ -36,11 +46,11 @@ body{
 }
 
 #p_forward, #m_forward{
-  background-image: url(https://www.vudu.com/content/images/pov_right_arrow.svg);
+  background-image: url(https://mapquiz.app/fec/infoplate/pov_right_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
-  top: 6px;
+  top: 42px;
   right: 0px;
   z-index: 99;
   height: 260px;
@@ -50,17 +60,17 @@ body{
 }
 
 #m_forward{
-  top: 288px;
+  top: 354px;
   height: 202px;
 }
 
 .movie_info{
   width: 132px;
   word-wrap: break-word;
-  height: 200px;
+  height: 198px;
   color: white;
   font-family: sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 12px;
   position: absolute;
   padding: 5px 5px 0;
@@ -73,10 +83,63 @@ body{
   white-space: normal;
   font-size: 14px;
   margin-bottom: 10px;
+  font-weight: 400;
 }
 
-.text{
-  font-size: 13px;
+.text, .infoplate_text{
+  font-size: 12px;
+  margin-right: 2px;
+  font-weight: 500;
+}
+
+.infoplate_text{
+  display: inline-block;
+}
+
+.rounded{
+  height: 14px;
+  line-height: 15px;
+  font-size: 11px;
+  padding: 0 3px;
+  border-radius: 80px;
+  background-color: #b0bec5;
+  color: #000;
+  font-weight: 700;
+  white-space: nowrap;
+  display: inline-block;
+  font-weight: 800;
+}
+
+.rating_container{
+  margin: 8px 0 8px 0;
+  align-items: center;
+  height: 14px;
+  display: flex;
+}
+
+.star_rating_empty{
+  z-index: 2;
+}
+
+.star_rating_full{
+  overflow: hidden;
+  z-index: 1;
+  position: absolute;
+}
+
+.star_rating_container {
+  display: flex;
+  height: 14px;
+  align-items: center;
+}
+
+.star_rating_container:hover{
+  opacity: .7;
+}
+
+.rt_icon{
+  transform: scale(.8);
+  display: flex;
 }
 
 .movie_info:hover{
@@ -133,4 +196,13 @@ body{
 .headshot:hover{
   opacity: .7;
   transition: .25s ease-in-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
