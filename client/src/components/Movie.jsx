@@ -5,9 +5,9 @@ const Movie = ({ movie }) => (
     <div className="movie_info">
       <div className="title">{movie.title}</div>
       <div className="container">
-        <div className="infoplate_text">{movie.release_date}</div>
-        <div className="infoplate_text rounded">{movie.rating}</div>
-        <div className="infoplate_text rounded">{movie.runtime}</div>
+        <div id="release_date" className="infoplate_text">{movie.release_date}</div>
+        <div id="mpaa_rating" className="infoplate_text rounded">{movie.rating}</div>
+        <div id="runtime" className="infoplate_text rounded">{movie.runtime}</div>
       </div>
       <div className="rating_container">
         <div className="star_rating_empty">
