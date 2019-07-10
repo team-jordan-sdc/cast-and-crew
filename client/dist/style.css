@@ -79,6 +79,10 @@ body{
   transition: opacity .25s ease-in-out;
 }
 
+.movie_info:hover{
+  opacity: 1;
+}
+
 .title{
   white-space: normal;
   font-size: 14px;
@@ -90,9 +94,6 @@ body{
   font-size: 12px;
   margin-right: 2px;
   font-weight: 500;
-}
-
-.infoplate_text{
   display: inline-block;
 }
 
@@ -117,16 +118,6 @@ body{
   display: flex;
 }
 
-.star_rating_empty{
-  z-index: 2;
-}
-
-.star_rating_full{
-  overflow: hidden;
-  z-index: 1;
-  position: absolute;
-}
-
 .star_rating_container {
   display: flex;
   height: 14px;
@@ -137,13 +128,19 @@ body{
   opacity: .7;
 }
 
+.star_rating_empty{
+  z-index: 2;
+}
+
+.star_rating_full{
+  overflow: hidden;
+  z-index: 1;
+  position: absolute;
+}
+
 .rt_icon{
   transform: scale(.8);
   display: flex;
-}
-
-.movie_info:hover{
-  opacity: 1;
 }
 
 .carousel_container:hover #p_backward{
@@ -166,17 +163,12 @@ body{
   display: block;
 }
 
-.person{
+.person, .movie{
   display: inline-block;
   margin-right: 20px;
 }
 
-.movie{
-  display: inline-block;
-  margin-right: 20px;
-}
-
-.name, .role, .movie_title{
+.name, .role{
   color: rgb(182, 182, 182);
   position: relative;
   left: 0;
