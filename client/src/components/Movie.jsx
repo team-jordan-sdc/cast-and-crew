@@ -19,7 +19,7 @@ const Movie = ({ movie }) => (
           </div>
         </span>
         <div className="rt_icon">
-          <img src="https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg"></img>
+          <img src={`${movie.rt_rating > 50 ? 'https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg' : 'https://mapquiz.app/fec/infoplate/Tomato_rotten.svg'}`}></img>
         </div>
         <div className="rt_rating">{movie.rt_rating}%</div>
       </div>
