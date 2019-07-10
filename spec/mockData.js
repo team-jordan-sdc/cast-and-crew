@@ -35,8 +35,11 @@ module.exports.mockData = {
           json: function () { return this },
           title: 'The Matrix',
           release_date: 'Jun 21',
+          rating: 'R',
           price: '$6.99',
-          thumbnail_url: "https://mapquiz.app/fec/thumbnails/movie_thumbnail17.jpeg"
+          thumbnail_url: "https://mapquiz.app/fec/thumbnails/movie_thumbnail17.jpeg",
+          rt_rating: 42,
+          vudu_rating: 5
         }]
       }
     })
