@@ -32,17 +32,15 @@ describe('App.jsx component', () => {
     expect(wrapper.find('MovieCarousel').html()).toBe(null);
   })
 
-  test('Clicking a Person component should call fetch()', (done) => {
+  test('Clicking a Person component should call fetch()', () => {
     wrapper.find('div.headshot').first().simulate('click');
     expect(fetch.mock.calls.length).toBe(3);
-    done();
   })
 
-  test('Clicking a Person component should render movies in the MovieCarousel', (done) => {
+  test('Clicking a Person component should render movies in the MovieCarousel', () => {
    wrapper.find('div.headshot').first().simulate('click');
    expect(wrapper.state().featuredPersonnel[0].title).toBe('The Matrix');
    expect(wrapper.find('MovieCarousel').html()).toContain('The Matrix');
-   done();
   })
 
 })
