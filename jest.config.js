@@ -4,9 +4,9 @@ module.exports = {
       displayName: 'dom',
       testEnvironment: 'jsdom',
       testMatch: ['**/spec/**/*.test.dom.js?(x)'],
-      setupFiles: ["<rootDir>/spec/setupTests.js"],
+      setupFiles: ['<rootDir>/spec/setupTests.js'],
       transform: {
-        "^.+\\.jsx?$": "babel-jest",
+        '^.+\\.jsx?$': 'babel-jest',
       },
     },
     {
