@@ -117,6 +117,16 @@ body{
   position: absolute;
 }
 
+.star_rating_container {
+  display: flex;
+  height: 14px;
+  align-items: center;
+}
+
+.star_rating_container:hover{
+  opacity: .7;
+}
+
 .rt_icon{
   transform: scale(.8);
   display: flex;
