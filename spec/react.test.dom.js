@@ -3,13 +3,13 @@ import { shallow, mount, render } from 'enzyme';
 import App from '../client/src/App.jsx';
 import mockData from './mockData.js';
 
-describe('App.jsx component', () => {
-  let wrapper = mount(<App/>);
-  /* If the App mounts successfully, remount before each test */
-  beforeEach(() => {
-    wrapper.mount();
-  })
+let wrapper = mount(<App/>);
+/* If the App mounts successfully, remount before each test */
+beforeEach(() => {
+  wrapper.mount();
+})
 
+describe('App.jsx component', () => {
   test('App should display "Loading..." text before retrieving data', () => {
     wrapper.unmount(); //the test should run before the mock data is fetched
     wrapper.mount();
@@ -17,7 +17,7 @@ describe('App.jsx component', () => {
   })
 
   test('App state should be set to retrieved movie data', () => {
-   expect(wrapper.state().featuredMovie.title).toBe('The Matrix')
+    expect(wrapper.state().featuredMovie.title).toBe('The Matrix')
   })
 
   test('PersonnelCarousel should render once data is retrieved', () => {
@@ -36,12 +36,26 @@ describe('App.jsx component', () => {
     wrapper.find('div.headshot').first().simulate('click');
     expect(fetch.mock.calls.length).toBe(3);
   })
+});
 
-  test('Clicking a Person component should render movies in the MovieCarousel', () => {
-   wrapper.find('div.headshot').first().simulate('click');
-   expect(wrapper.state().featuredPersonnel[0].title).toBe('The Matrix');
-   expect(wrapper.find('MovieCarousel').html()).toContain('The Matrix');
+describe('MovieCarousel.jsx component', () => {
+  beforeEach(() => {
+    wrapper.find('div.headshot').first().simulate('click');
   })
 
+  test('Clicking a Person component should render movies in the MovieCarousel', () => {
+    expect(wrapper.state().featuredPersonnel[0].title).toBe('The Matrix');
+    expect(wrapper.find('MovieCarousel').html()).toContain('The Matrix');
+  })
+
+  test(`A Movie component's infoplate should contain the movie's metadata`, () => {
+    expect(wrapper.find('div.rt_rating').text()).toBe('42%');
+    expect(wrapper.find('#mpaa_rating').text()).toBe('R');
+  })
+
+  test(`A Movie component's infoplate should reflect the same data in its state`, () => {
+    expect(wrapper.find('div.rt_rating').text()).toBe('42%');
+    expect(wrapper.find('#mpaa_rating').text()).toBe('R');
+  })
 })
 
