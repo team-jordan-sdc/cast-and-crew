@@ -26,6 +26,7 @@ body{
 
 #movies_carousel{
   height: 206px;
+  animation: fadein .5s;
 }
 
 #p_backward, #m_backward{
@@ -49,7 +50,7 @@ body{
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
-  top: 6px;
+  top: 42px;
   right: 0px;
   z-index: 99;
   height: 260px;
@@ -59,7 +60,7 @@ body{
 }
 
 #m_forward{
-  top: 288px;
+  top: 354px;
   height: 202px;
 }
 
@@ -195,4 +196,13 @@ body{
 .headshot:hover{
   opacity: .7;
   transition: .25s ease-in-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
