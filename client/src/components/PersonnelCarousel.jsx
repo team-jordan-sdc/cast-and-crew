@@ -34,12 +34,15 @@ class PersonnelCarousel extends React.Component {
 
   render() {
     return (
-      <div className="carousel_container">
+      <div className="container">
+        <span className="main_title">Cast & Crew</span>
+        <div className="carousel_container">
           <div id="p_backward" onClick={this.moveBackward}></div>
           <div id="personnel_carousel" style={{ transform: `translate3d(${this.state.position}px, 0px, 0px)` }}>
-            {this.props.personnel.map(person =><div className="person"><Person info={person} set={this.props.set}/></div>)}
+            {this.props.personnel.map(person => <div className="person"><Person info={person} set={this.props.set} /></div>)}
           </div>
           <div id="p_forward" onClick={this.moveForward}></div>
+        </div>
       </div>
     )
   }
