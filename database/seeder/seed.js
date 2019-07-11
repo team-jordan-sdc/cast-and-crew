@@ -10,18 +10,6 @@ const bar = new progress.Bar({}, progress.Presets.shades_classic);
 let completed = 0;
 bar.start(100, 0);
 
-/*********** HELPER FUNCTIONS ***********/
-const getRandomNum = (max) => {
-  return Math.floor(Math.random() * max);
-};
-
-const generatePersonnelForMovies = (max, personnelList) => {
-  let results = [];
-  for (let i = 0; i <= getRandomNum(25) + 10; i++) { //each movie will have at least 10 members
-    results.push({ _id: personnelList[getRandomNum(max)], role: data.roles[getRandomNum(19)] });
-  }
-  return results;
-};
 
 /******* DATABASE SEEDER *******/
 /* NEEDS REFACTORING! Todo: Kill the mongoose connection once fully seeded w/o interfering with Jest tests */
