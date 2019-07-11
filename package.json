@@ -7,7 +7,7 @@
     "test": "jest",
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
-    "seed": "node -e 'require(\"./database/seeder.js\").seed()'"
+    "seed": "node -e 'require(\"./database/seeder/seed.js\").seed()'"
   },
   "repository": {
     "type": "git",
