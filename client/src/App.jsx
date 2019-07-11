@@ -38,14 +38,17 @@ class App extends React.Component {
   }
 
   render() {
-    return this.state.personnel.length ? (
-      <Main>
-        <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)}/>
-        <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel}/>
-      </Main>
-    ) : <div>Loading...</div>
+    if (!this.state.personnel.length) {
+      return <div>Loading...</div>
+    } else {
+      return (
+        <Main>
+          <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)} />
+          <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel} />
+        </Main>
+      )
+    }
   }
-
 }
 
 export default App;
