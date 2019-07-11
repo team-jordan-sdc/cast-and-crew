@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Person from './Person.jsx';
-import $ from 'jquery';
-import { CarouselContainer, Title, Container, NavBackward, NavForward } from '../styling.jsx';
+import styled from 'styled-components'
+import { CarouselContainer, Title, Container, NavBackward, NavForward, Carousel, Plate } from '../styling.jsx';
 
 class PersonnelCarousel extends React.Component {
   constructor(props){
@@ -28,13 +28,12 @@ class PersonnelCarousel extends React.Component {
      should not extend further than width of carousel - width of window. */
   moveForward(){
     const position = ReactDOM.findDOMNode(this.refs['PersonnelCarousel']).getBoundingClientRect();
-
     if((position.left - 800) * -1 > position.width - window.innerWidth) {
       this.setState({position: (position.width - window.innerWidth) * -1});
     } else {
       this.setState({position: this.state.position - 800});
     }
-  }
+  };
 
   render() {
     return (
@@ -42,14 +41,14 @@ class PersonnelCarousel extends React.Component {
         <Title>Cast & Crew</Title>
         <CarouselContainer>
           <NavBackward onClick={this.moveBackward} />
-          <div ref="PersonnelCarousel" id="personnel_carousel" style={{ transform: `translate3d(${this.state.position}px, 0px, 0px)` }}>
-            {this.props.personnel.map(person => <div className="person"><Person info={person} set={this.props.set} /></div>)}
-          </div>
+          <Carousel ref="PersonnelCarousel" position={this.state.position}>
+            {this.props.personnel.map(person => <Plate><Person info={person} set={this.props.set} /></Plate>)}
+          </Carousel>
           <NavForward onClick={this.moveForward} />
           </CarouselContainer>
       </Container>
     )
-  }
+  };
 
 }
 

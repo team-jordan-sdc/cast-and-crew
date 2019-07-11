@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Movie from './Movie.jsx';
-import $ from 'jquery';
+import { CarouselContainer, Title, Container, NavBackward, NavForward, Carousel, Plate } from '../styling.jsx';
 
 class MovieCarousel extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class MovieCarousel extends React.Component {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
       this.setState({movies: this.props.featuredPersonnel, position: 0});
     }
-  }
+  };
 
   /* Restrict the carousel from moving too far backwards */
   moveBackward() {
@@ -31,28 +32,29 @@ class MovieCarousel extends React.Component {
   /* Restrict the carousel from moving too far forward. Its left position
      should not extend further than width of carousel - width of window. */
   moveForward() {
-    if(($('#movies_carousel').position().left - 800) * -1 > $('#movies_carousel').width() - $(window).width()) {
-      this.setState({position: ($('#movies_carousel').width() - $(window).width()) * -1});
+    const position = ReactDOM.findDOMNode(this.refs['MoviesCarousel']).getBoundingClientRect();
+    if((position.left - 800) * -1 > position.width - window.innerWidth) {
+      this.setState({position: (position.width - window.innerWidth) * -1});
     } else {
       this.setState({position: this.state.position - 800});
     }
-  }
+  };
 
   render() {
     /* Only render carousel if state is up to date */
     return this.state.movies ? (
-      <div className="container">
-        <span className="main_title">Movies Featuring {this.props.selectedPersonnel}</span>
-        <div className="carousel_container">
-          <div id="m_backward" onClick={this.moveBackward}></div>
-          <div id="movies_carousel" style={{ transform: `translate3d(${this.state.position}px, 0px, 0px)` }}>
-            {this.state.movies.map(movie => <div className="movie"><Movie movie={movie} /></div>)}
-          </div>
-          <div id="m_forward" onClick={this.moveForward}></div>
-        </div>
-      </div>
+      <Container>
+        <Title>Movies Featuring {this.props.selectedPersonnel}</Title>
+        <CarouselContainer>
+          <NavBackward onClick={this.moveBackward} style={{height: '202px'}} />
+          <Carousel ref="MoviesCarousel" position={this.state.position}>
+            {this.state.movies.map(movie => <Plate><Movie movie={movie} /></Plate>)}
+          </Carousel>
+          <NavForward onClick={this.moveForward} style={{top: '354px', height: '202px'}}/>
+        </CarouselContainer>
+      </Container>
     ) : null
-  }
+  };
 
 }
 

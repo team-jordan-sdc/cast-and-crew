@@ -1,11 +1,12 @@
 import React from 'react';
+import {PersonInfo, Container, Headshot} from '../styling.jsx';
 
 const Person = ({info, set}) => (
-  <div className="container">
-    <div className="headshot" onClick={() => set(info._id)}><img src={info._id.thumbnail_url}></img></div>
-    <div className="name">{info._id.name}</div>
-    <div className="role">{info.role}</div>
-  </div>
+  <Container>
+    <Headshot onClick={() => set(info._id)}><img src={info._id.thumbnail_url}></img></Headshot>
+    <PersonInfo name={'true'}>{info._id.name}</PersonInfo>
+    <PersonInfo role={'true'}>{info.role}</PersonInfo>
+  </Container>
 )
 
 export default Person;
