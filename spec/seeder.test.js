@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db = require('../database/index.js');
-const seed = require('../database/seeder.js').seed;
+const seed = require('../database/seeder/seed.js').seed;
 
 describe('Database seeder', () => {
   let movies;
