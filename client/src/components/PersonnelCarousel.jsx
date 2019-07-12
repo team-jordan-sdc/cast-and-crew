@@ -45,7 +45,7 @@ class PersonnelCarousel extends React.Component {
             {this.props.personnel.map(person => <Plate><Person info={person} set={this.props.set} /></Plate>)}
           </Carousel>
           <NavForward onClick={this.moveForward} />
-          </CarouselContainer>
+        </CarouselContainer>
       </Container>
     )
   };
