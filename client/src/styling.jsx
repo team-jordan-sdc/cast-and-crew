@@ -26,7 +26,7 @@ const Title = styled.span`
 `;
 
 const NavBackward = styled.div`
-  background-image: url(https://mapquiz.app/fec/infoplate/pov_left_arrow.svg);
+  background-image: url(https://fec1-arwen.s3.amazonaws.com/infoplate/pov_left_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
@@ -38,7 +38,7 @@ const NavBackward = styled.div`
 `;
 
 const NavForward = styled.div`
-  background-image: url(https://mapquiz.app/fec/infoplate/pov_right_arrow.svg);
+  background-image: url(https://fec1-arwen.s3.amazonaws.com/infoplate/pov_right_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;

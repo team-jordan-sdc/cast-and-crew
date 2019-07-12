@@ -12,12 +12,12 @@ const Movie = ({ movie }) => (
       </Container>
       <RatingContainer margin={true}>
         <RatingContainer margin={false} hover={true}>
-          <img src="https://mapquiz.app/fec/infoplate/Star_empty.svg"></img>
+          <img src="https://fec1-arwen.s3.amazonaws.com/infoplate/Star_empty.svg"></img>
           <FullStars width={Number(movie.vudu_rating)}>
-            <img src="https://mapquiz.app/fec/infoplate/Star_full.svg"></img>
+            <img src="https://fec1-arwen.s3.amazonaws.com/infoplate/Star_full.svg"></img>
           </FullStars>
         </RatingContainer>
-        <img src={`${movie.rt_rating > 50 ? 'https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg' : 'https://mapquiz.app/fec/infoplate/Tomato_rotten.svg'}`} style={{ display: 'flex', transform: 'scale(.8)' }}></img>
+        <img src={`${movie.rt_rating > 50 ? 'https://fec1-arwen.s3.amazonaws.com/infoplate/Tomato_certified_fresh.svg' : 'https://fec1-arwen.s3.amazonaws.com/infoplate/Tomato_rotten.svg'}`} style={{ display: 'flex', transform: 'scale(.8)' }}></img>
         <Container id="rt_rating">{movie.rt_rating}%</Container>
       </RatingContainer>
       <Text>{`Rent/Buy from ${movie.price}`}</Text>

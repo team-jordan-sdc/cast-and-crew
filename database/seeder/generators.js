@@ -19,7 +19,7 @@ module.exports.fakePersonnel = () => {
   for (let actor of data.actors) {
     fakePersonnel.push({
       name: actor,
-      thumbnail_url: `https://mapquiz.app/fec/headshots/headshot${count}.jpeg`,
+      thumbnail_url: `https://fec1-arwen.s3.amazonaws.com/headshots/headshot${count}.jpeg`,
     });
     count < 16 && count++;
   }
@@ -35,7 +35,7 @@ module.exports.fakeMovie = (personnelList) => {
     rating: data.ratings[getRandomNum(5)],
     rt_rating: getRandomNum(101),
     price: `$${getRandomNum(30) + 1}.99`,
-    thumbnail_url: `https://mapquiz.app/fec/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
+    thumbnail_url: `https://fec1-arwen.s3.amazonaws.com/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
     personnel: generatePersonnelForMovies(21, personnelList)
   };
 };
