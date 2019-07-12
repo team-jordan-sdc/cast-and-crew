@@ -18,7 +18,7 @@ const Movie = ({ movie }) => (
           </FullStars>
         </RatingContainer>
         <img src={`${movie.rt_rating > 50 ? 'https://mapquiz.app/fec/infoplate/Tomato_certified_fresh.svg' : 'https://mapquiz.app/fec/infoplate/Tomato_rotten.svg'}`} style={{ display: 'flex', transform: 'scale(.8)' }}></img>
-        <Container>{movie.rt_rating}%</Container>
+        <Container id="rt_rating">{movie.rt_rating}%</Container>
       </RatingContainer>
       <Text>{`Rent/Buy from ${movie.price}`}</Text>
     </MovieInfo>
