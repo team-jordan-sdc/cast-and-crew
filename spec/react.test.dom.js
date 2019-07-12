@@ -21,7 +21,7 @@ describe('App.jsx component', () => {
   });
 
   test('PersonnelCarousel should render once data is retrieved', () => {
-    expect(wrapper.find('div.carousel_container').html()).toContain('id="personnel_carousel');
+    expect(wrapper.find('PersonnelCarousel').text().length).toBeGreaterThan(0);
   });
 
   test('PersonnelCarousel should contain Person components', () => {
@@ -33,14 +33,14 @@ describe('App.jsx component', () => {
   });
 
   test('Clicking a Person component should call fetch()', () => {
-    wrapper.find('div.headshot').first().simulate('click');
+    wrapper.find('Headshot').first().simulate('click');
     expect(fetch.mock.calls.length).toBe(3);
   });
 });
 
 describe('MovieCarousel.jsx component', () => {
   beforeEach(() => {
-    wrapper.find('div.headshot').first().simulate('click');
+    wrapper.find('Headshot').first().simulate('click');
   });
 
   test('Clicking a Person component should render movies in the MovieCarousel', () => {
@@ -49,13 +49,14 @@ describe('MovieCarousel.jsx component', () => {
   });
 
   test('A Movie component infoplate should contain its metadata', () => {
-    expect(wrapper.find('div.rt_rating').text()).toBe('42%');
-    expect(wrapper.find('#mpaa_rating').text()).toBe('R');
+    expect(wrapper.find('#rt_rating').first().text()).toBe('42%');
+    expect(wrapper.find('RoundedText').first().text()).toBe('R');
   });
 
   test('A Movie component infoplate should reflect the same data in its state', () => {
-    expect(wrapper.find('div.rt_rating').text()).toBe('42%');
-    expect(wrapper.find('#mpaa_rating').text()).toBe('R');
+    const state = wrapper.state().featuredPersonnel[0].rating;
+    const info = wrapper.find('RoundedText').first().text();
+    expect(state).toEqual(info);
   });
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PersonnelCarousel from './components/PersonnelCarousel.jsx';
 import MoviesCarousel from './components/MoviesCarousel.jsx';
+import {Main} from './styling.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -38,12 +38,16 @@ class App extends React.Component {
   }
 
   render() {
-    return this.state.personnel.length ? (
-      <div className="container">
-        <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)}/>
-        <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel}/>
-      </div>
-    ) : <div>Loading...</div>
+    if (!this.state.personnel.length) {
+      return <div>Loading...</div>
+    } else {
+      return (
+        <Main>
+          <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)} />
+          <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel} />
+        </Main>
+      )
+    }
   }
 
 }
