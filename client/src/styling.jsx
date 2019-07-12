@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {keyframes} from 'styled-components';
 
-export const fadein = keyframes`
+const fadein = keyframes`
   0%{
     opacity: 0;
   }
@@ -10,13 +10,13 @@ export const fadein = keyframes`
   }
 `;
 
-export const Main = styled.div`
+const Main = styled.div`
   background-color: #041c2c;
 `;
-export const Container = styled.div`
+const Container = styled.div`
 `;
 
-export const Title = styled.span`
+const Title = styled.span`
   display: flex;
   font-size: 19px;
   font-weight: 300;
@@ -25,7 +25,7 @@ export const Title = styled.span`
   margin: 10px 0 10px 0;
 `;
 
-export const NavBackward = styled.div`
+const NavBackward = styled.div`
   background-image: url(https://mapquiz.app/fec/infoplate/pov_left_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
@@ -37,7 +37,7 @@ export const NavBackward = styled.div`
   display: none;
 `;
 
-export const NavForward = styled.div`
+const NavForward = styled.div`
   background-image: url(https://mapquiz.app/fec/infoplate/pov_right_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
@@ -51,7 +51,7 @@ export const NavForward = styled.div`
   display: none;
 `;
 
-export const CarouselContainer = styled.div`
+const CarouselContainer = styled.div`
   overflow-x: hidden;
   white-space: nowrap;
   margin-bottom: 20px;
@@ -67,7 +67,7 @@ export const CarouselContainer = styled.div`
   }
 `;
 
-export const Carousel = styled.div`
+const Carousel = styled.div`
   width: fit-content;
   height: 260px;
   transition: transform .5s ease;
@@ -76,7 +76,7 @@ export const Carousel = styled.div`
   transform: translate3d(${position => position.position}px, 0px, 0px);
 `;
 
-export const MovieInfo = styled.div`
+const MovieInfo = styled.div`
   width: 132px;
   word-wrap: break-word;
   height: 198px;
@@ -94,14 +94,14 @@ export const MovieInfo = styled.div`
   }
 `;
 
-export const Text = styled.span`
+const Text = styled.span`
   font-size: 12px;
   margin-right: 2px;
   font-weight: 500;
   display: inline-block;
 `;
 
-export const RoundedText = styled.span`
+const RoundedText = styled.span`
   height: 14px;
   line-height: 15px;
   font-size: 11px;
@@ -114,7 +114,7 @@ export const RoundedText = styled.span`
   font-weight: 800;
 `;
 
-export const RatingContainer = styled.div`
+const RatingContainer = styled.div`
   margin: ${prop => prop ? '8px 0 8px 0' : 0};
   align-items: center;
   height: 14px;
@@ -122,7 +122,7 @@ export const RatingContainer = styled.div`
   ${hover => hover.hover ? '&:hover { opacity: .7 }' : '' }
 `
 
-export const MovieTitle = styled.span`
+const MovieTitle = styled.span`
 display: block;
   white-space: normal;
   font-size: 14px;
@@ -130,7 +130,7 @@ display: block;
   font-weight: 400;
 `;
 
-export const FullStars = styled.div`
+const FullStars = styled.div`
   display: flex;
   overflow: hidden;
   position: absolute;
@@ -138,7 +138,7 @@ export const FullStars = styled.div`
   width: ${width => width.width * 17.75}px;
 `
 
-export const PersonInfo = styled.span`
+const PersonInfo = styled.span`
   color: rgb(182, 182, 182);
   position: relative;
   display: block;
@@ -152,15 +152,26 @@ export const PersonInfo = styled.span`
   width: 60px;
 `;
 
-export const Headshot = styled.span`
+const Headshot = styled.span`
   &:hover {
     opacity: .7;
     transition: .25s ease-in-out;
   }
 `;
 
-export const Plate = styled.div`
+const Plate = styled.div`
   display: inline-block;
   margin-right: 20px;
 `;
 
+Carousel.displayName = 'Carousel';
+Plate.displayName = 'Plate';
+Headshot.displayName = 'Headshot';
+RatingContainer.displayName = 'RatingContainer';
+RoundedText.displayName = 'RoundedText';
+
+export {
+  fadein, Main, Container, CarouselContainer, Carousel,
+  Title, NavBackward, NavForward, Text, RoundedText, MovieInfo,
+  MovieTitle, FullStars, PersonInfo, Headshot, Plate, RatingContainer
+};
