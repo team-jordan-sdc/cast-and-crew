@@ -41,10 +41,9 @@ const NavForward = styled.div`
   background-image: url(https://fec1-arwen.s3.amazonaws.com/infoplate/pov_right_arrow.svg);
   background-position: center;
   background-repeat: no-repeat;
-  position: absolute;
-  top: 42px;
-  right: 8px;
-  z-index: 99;
+  position: relative;
+  float: right;
+  z-index: 100;
   height: 260px;
   width: 35px;
   background-color: rgba(0, 0, 0, 0.582);
@@ -52,7 +51,7 @@ const NavForward = styled.div`
 `;
 
 const CarouselContainer = styled.div`
-  overflow-x: hidden;
+  overflow: hidden;
   white-space: nowrap;
   margin-bottom: 20px;
 
