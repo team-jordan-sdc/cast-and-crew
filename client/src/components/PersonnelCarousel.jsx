@@ -41,10 +41,10 @@ class PersonnelCarousel extends React.Component {
         <Title>Cast & Crew</Title>
         <CarouselContainer>
           <NavBackward onClick={this.moveBackward} />
+          <NavForward onClick={this.moveForward} />
           <Carousel ref="PersonnelCarousel" position={this.state.position}>
             {this.props.personnel.map(person => <Plate><Person info={person} set={this.props.set} /></Plate>)}
           </Carousel>
-          <NavForward onClick={this.moveForward} />
         </CarouselContainer>
       </Container>
     )

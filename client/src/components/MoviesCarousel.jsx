@@ -47,10 +47,10 @@ class MovieCarousel extends React.Component {
         <Title>Movies Featuring {this.props.selectedPersonnel}</Title>
         <CarouselContainer>
           <NavBackward onClick={this.moveBackward} style={{height: '202px'}} />
+          <NavForward onClick={this.moveForward} style={{height: '202px'}}/>
           <Carousel ref="MoviesCarousel" position={this.state.position}>
             {this.state.movies.map(movie => <Plate><Movie movie={movie} /></Plate>)}
           </Carousel>
-          <NavForward onClick={this.moveForward} style={{top: '354px', height: '202px'}}/>
         </CarouselContainer>
       </Container>
     ) : null
