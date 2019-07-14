@@ -31,7 +31,7 @@ const NavBackward = styled.div`
   background-repeat: no-repeat;
   position: absolute;
   z-index: 100;
-  height: 255px;
+  height: 260px;
   width: 35px;
   background-color: rgba(0, 0, 0, 0.582);
   display: none;
