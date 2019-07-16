@@ -111,6 +111,7 @@ const RoundedText = styled.span`
   white-space: nowrap;
   display: inline-block;
   font-weight: 800;
+  margin-right: 3px;
 `;
 
 const RatingContainer = styled.div`
