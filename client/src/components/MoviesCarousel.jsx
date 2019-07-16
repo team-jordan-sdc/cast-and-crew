@@ -9,7 +9,8 @@ class MovieCarousel extends React.Component {
     this.state = {
       movies: null,
       position: 0
-    }
+    };
+    this.myRef = React.createRef();
     this.moveForward = this.moveForward.bind(this);
     this.moveBackward = this.moveBackward.bind(this);
   }
@@ -17,6 +18,7 @@ class MovieCarousel extends React.Component {
   componentDidUpdate(prevProps) {
     if(prevProps.featuredPersonnel !== this.props.featuredPersonnel){
       this.setState({movies: this.props.featuredPersonnel, position: 0});
+      setTimeout(() => this.myRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' }), 100);
     }
   };
 
@@ -32,7 +34,7 @@ class MovieCarousel extends React.Component {
   /* Restrict the carousel from moving too far forward. Its left position
      should not extend further than width of carousel - width of window. */
   moveForward() {
-    const position = ReactDOM.findDOMNode(this.refs['MoviesCarousel']).getBoundingClientRect();
+    const position = this.myRef.current.getBoundingClientRect();
     if((position.left - 800) * -1 > position.width - window.innerWidth) {
       this.setState({position: (position.width - window.innerWidth) * -1});
     } else {
@@ -48,7 +50,7 @@ class MovieCarousel extends React.Component {
         <CarouselContainer>
           <NavBackward onClick={this.moveBackward} style={{height: '202px'}} />
           <NavForward onClick={this.moveForward} style={{height: '202px'}}/>
-          <Carousel ref="MoviesCarousel" position={this.state.position}>
+          <Carousel ref={this.myRef} position={this.state.position}>
             {this.state.movies.map(movie => <Plate><Movie movie={movie} /></Plate>)}
           </Carousel>
         </CarouselContainer>
