@@ -22,7 +22,8 @@ const seed = async () => {
   return new Promise((resolve, reject) => { //we want async nature for our tests
 
     for (let i = 1; i <= 100; i++) {
-      const currentMovie = new db.Movie(fakeMovie(personnelList));
+      let currentMovie = new db.Movie(fakeMovie(personnelList));
+      currentMovie.id = i;
       currentMovie.save().then(() => {
         bar.update(++completed);
         if (completed === 100) {
