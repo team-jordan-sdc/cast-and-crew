@@ -4,7 +4,7 @@ A module for displaying the works of a selected cast/crew member.
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 2. [Setup](#setup)
-3. [Usage] (#usage)
+3. [Usage](#usage)
 
 
 ## Prerequisites
