@@ -8,6 +8,7 @@ describe('Database seeder', () => {
 
   beforeAll(async () => {
     await seed();
+    await mongoose.connect('mongodb://localhost:27017/castandcrew', {useNewUrlParser: true});
     await db.Movie.find().then(results => movies = results);
     await db.Personnel.find().then(results => personnel = results);
   });
@@ -35,7 +36,7 @@ describe('Database seeder', () => {
     await db.Movie.collection.drop();
     await db.Personnel.collection.drop();
     await mongoose.connection.close();
-    console.log('Wrapping up done!');
+    console.log('Finished tests!');
   });
 
 });
