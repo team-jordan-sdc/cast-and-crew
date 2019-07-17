@@ -14,8 +14,8 @@ app.get('/api/personnel', (req, res) => {
 });
 
 app.get('/api/movies', (req, res) => {
-  db.getMovies()
-    .then(results => res.send(results[Math.floor(Math.random() * 99)]))
+  db.getMovies(req.query.id)
+    .then(results => res.send(results[0]))
     .catch(err => console.log(err));
 });
 
