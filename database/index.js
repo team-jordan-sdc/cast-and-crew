@@ -1,8 +1,13 @@
 const mongoose = require ('mongoose');
-const Promise = require('bluebird');
-const MONGDB_URI = 'mongodb://localhost:27017/castandcrew';
+const MONGODB_URI = 'mongodb://mongo:27017/castandcrew';
 
-mongoose.connect(MONGDB_URI, {useNewUrlParser: true});
+
+const connectWithRetry = () => {
+  mongoose.connect(MONGODB_URI, { useNewUrlParser: true }, (err) => {
+    err && setTimeout(connectWithRetry, 5000); //attempt to reconnect every 5 seconds if initial attempt fails
+  });
+};
+connectWithRetry();
 
 /****************************
  * SCHEMA DEFINITIONS *

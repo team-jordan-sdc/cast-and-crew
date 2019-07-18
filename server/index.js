@@ -1,5 +1,4 @@
 const express = require('express');
-const Promise = require('bluebird');
 const db = require('../database/index.js');
 const app = express();
 const PORT = 3000;
@@ -14,7 +13,7 @@ app.get('/api/personnel', (req, res) => {
 });
 
 app.get('/api/movies', (req, res) => {
-  db.getMovies(req.query.id)
+  db.getMovies(Number(req.query.id))
     .then(results => res.send(results[0]))
     .catch(err => console.log(err));
 });

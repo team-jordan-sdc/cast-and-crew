@@ -8,16 +8,20 @@ A module for displaying the works of a selected cast/crew member.
 
 
 ## Prerequisites
-1. Installation of MongoDB listening on port 27017
-2. Node v10.16.0
+1. Docker Desktop
 
 ## Setup
-1. Install dependencies via `npm install`.
-2. Run `npm run react-dev` to begin transpilation via `Babel`.
-3. Run `npm run server-dev` to start the server on port 3000.
-4. Run `npm test` to ensure the environment and service are compatible.
-5. Run `npm run seed` to populate the database with sample data.
+1. Clone this repo to your local machine.
+2. In the root directory of this project, run `docker-compose up --build`.
+
+Note: If updated version of this repo has been pulled after building, run `docker image rm castandcrew:latest` before re-building.
+
+### Seeding the database
+  1. `docker exec -it castandcrew /bin/bash`
+  2. `npm run seed`
 
 ## Usage
 To retrieve a movie, use a query string:
 `http://localhost:3000/?id=1`
+
+
