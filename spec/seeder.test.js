@@ -8,7 +8,7 @@ describe('Database seeder', () => {
 
   beforeAll(async () => {
     await seed();
-    await mongoose.connect('mongodb://localhost:27017/castandcrew', {useNewUrlParser: true});
+    await mongoose.connect('mongodb://mongo:27017/castandcrew', {useNewUrlParser: true});
     await db.Movie.find().then(results => movies = results);
     await db.Personnel.find().then(results => personnel = results);
   });
