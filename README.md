@@ -13,10 +13,10 @@ A module for displaying the works of a selected cast/crew member.
 ## Setup
 1. Clone this repo to your local machine.
 2. In the root directory of this project, run `docker-compose up --build`.
-  NOTE: If you have pulled down an updated copy of this repo and have already built the containers, you will need to run the following first:
-    `docker image rm castandcrew:latest`
 
-### 3. Seeding the database
+Note: If updated version of this repo has been pulled after building, run `docker image rm castandcrew:latest` before re-building.
+
+### Seeding the database
   1. `docker exec -it castandcrew /bin/bash`
   2. `npm run seed`
 
