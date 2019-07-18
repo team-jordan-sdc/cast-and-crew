@@ -15,14 +15,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getFeaturedMovie('feature=true');
+    let qs = new URLSearchParams(window.location.search);
+    this.getFeaturedMovie(qs.get('id'));
   }
 
-  getFeaturedMovie(querystring) {
-    return fetch(`/api/movies?${querystring}`, {
+  getFeaturedMovie(qs) {
+    return fetch(`/api/movies?id=${qs}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
+
       .then(results => results.json())
       .then(results => this.setState({ featuredMovie: results }))
       .then(() => this.setState({personnel: this.state.featuredMovie.personnel}));

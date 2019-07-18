@@ -10,6 +10,7 @@ mongoose.connect(MONGDB_URI, {useNewUrlParser: true});
 
 const movieSchema = new mongoose.Schema(
   {
+    id: 'number',
     title: 'string',
     release_date: 'string',
     vudu_rating: 'number',
@@ -50,8 +51,8 @@ const getPersonnel = (id) => {
   return Movie.find().where('personnel._id').equals(id).exec();
 };
 
-const getMovies = () => {
-  return Movie.find().populate('personnel._id').exec();
+const getMovies = (id) => {
+  return Movie.find().where('id').equals(id).populate('personnel._id').exec();
 };
 
 /* Export schemas for testing and seeding the database */
