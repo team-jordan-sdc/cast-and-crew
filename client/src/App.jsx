@@ -16,7 +16,9 @@ class App extends React.Component {
 
   componentDidMount() {
     let qs = new URLSearchParams(window.location.search);
-    this.getFeaturedMovie(qs.get('id'));
+    let res = qs.get('id');
+    let search = res ? res : 1;
+    this.getFeaturedMovie(search);
   }
 
   getFeaturedMovie(qs) {
@@ -24,7 +26,6 @@ class App extends React.Component {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
-
       .then(results => results.json())
       .then(results => this.setState({ featuredMovie: results }))
       .then(() => this.setState({personnel: this.state.featuredMovie.personnel}));
