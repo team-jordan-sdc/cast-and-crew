@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { CarouselContainer, Title, Container, NavBackward, NavForward, Carousel, Plate } from '../styling.jsx';
 
 class PersonnelCarousel extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       position: 0,
@@ -16,22 +16,22 @@ class PersonnelCarousel extends React.Component {
   }
 
   /* Restrict the carousel from moving too far backwards */
-  moveBackward(){
+  moveBackward() {
     if (this.state.position + 800 > 0) {
-      this.setState({position: 0});
+      this.setState({ position: 0 });
     } else {
-      this.setState({position: this.state.position + 800});
+      this.setState({ position: this.state.position + 800 });
     }
   };
 
   /* Restrict the carousel from moving too far forward. Its left position
      should not extend further than width of carousel - width of window. */
-  moveForward(){
+  moveForward() {
     const position = ReactDOM.findDOMNode(this.refs['PersonnelCarousel']).getBoundingClientRect();
-    if((position.left - 800) * -1 > position.width - window.innerWidth) {
-      this.setState({position: (position.width - window.innerWidth) * -1});
+    if ((position.left - 800) * -1 > position.width - window.innerWidth) {
+      this.setState({ position: (position.width - window.innerWidth) * -1 });
     } else {
-      this.setState({position: this.state.position - 800});
+      this.setState({ position: this.state.position - 800 });
     }
   };
 
