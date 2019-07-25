@@ -25,7 +25,7 @@ To retrieve a movie, use a query string:
 `http://localhost:3000/?id=1`
 
 ## API Endpoints
-- GET: /api/personnel     ==>  retrieve personel by ID
+- GET: /api/personnel     ==>  retrieve list of movies that include personnel ID
 - POST: /api/personnel    ==>  add new personnel to database
 - PUT: /api/personnel     ==>  update information regarding personnel
 - DELETE: /api/personnel  ==>  remove entry in personnel database
