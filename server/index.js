@@ -28,25 +28,19 @@ app.get('/api/personnel', (req, res) => {
 });
 
 app.delete('/api/personnel', (req, res) => {
-  // TO-DO: grab name from request rather than hardcoding
-  db.removePersonnel('Marlon Brando')
+  db.removePersonnel(req.body.name)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
 app.post('/api/personnel', (req, res) => {
-  // TO-DO: grab personnel object from request rather than hardcoding
-  const personnelObj = { name: 'Elton John', thumbnail_url: 'https://fec1-arwen.s3.amazonaws.com/headshots/headshot13.jpeg' };
-
-  db.addPersonnel(personnelObj)
+  db.addPersonnel(req.body)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
 app.put('/api/personnel', (req, res) => {
-  // TO-DO: grab name from request rather than hardcoding
-  const name = 'Seth Rogen';
-  db.udpatePersonnel(5, name)
+  db.udpatePersonnel(req.body.filter, req.body.update)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
@@ -60,34 +54,19 @@ app.get('/api/movies', (req, res) => {
 });
 
 app.post('/api/movies', (req, res) => {
-  // TO-DO: grab movie object from request rather than hardcoding
-  db.addMovies({
-    title: 'Fear and Loathing in Las Vegas',
-    release_date: 'Sep 12',
-    vudu_rating: 2,
-    runtime: '115 min',
-    rating: 'R',
-    rt_rating: 99,
-    price: '$19.95',
-    thumbnail_url: 'https://fec1-arwen.s3.amazonaws.com/thumbnails/movie_thumbnail5.jpeg',
-    personnel: [],
-    id: 102,
-    __v: 0,
-  })
+  db.addMovies(req.body)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
 app.delete('/api/movies', (req, res) => {
-  // TO-DO: grab title from request rather than hardcoding
-  db.removeMovies('Fat Albert')
+  db.removeMovies(req.body.title)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
 app.put('/api/movies', (req, res) => {
-  // TO-DO: pass filter and update from req
-  db.updateMovies()
+  db.updateMovies(req.body.filter, req.body.update)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });

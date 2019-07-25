@@ -64,9 +64,7 @@ const addPersonnel = (personnelObj) => {
   return Personnel.create(personnelObj);
 };
 
-const udpatePersonnel = () => {
-  const filter = { name: 'Brad Pitt' };
-  const update = { thumbnail_url: 'https://fec1-arwen.s3.amazonaws.com/headshots/headshot13.jpeg' };
+const udpatePersonnel = (filter, update) => {
   return Personnel.findOneAndUpdate(filter, update, {
     new: true,
     useFindAndModify: false,
@@ -83,10 +81,7 @@ const getMovies = (id) => {
   return Movie.find().where('id').equals(id).populate('personnel._id').exec();
 };
 
-const updateMovies = () => {
-  // TO-DO: Fix me
-  const filter = { title: 'Forrest Gump' };
-  const update = { rt_rating: 99 };
+const updateMovies = (filter, update) => {
   return Personnel.findOneAndUpdate(filter, update, {
     new: true,
     useFindAndModify: false,
