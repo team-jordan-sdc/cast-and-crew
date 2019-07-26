@@ -1,5 +1,7 @@
 const mongoose = require ('mongoose');
-const MONGODB_URI = 'mongodb://mongo:27017/castandcrew';
+const MONGODB_URI = 'mongodb://localhost:27017/castandcrew';
+
+const { fakeMovie, fakePersonnel } = require('./seeder/generators');
 
 
 const connectWithRetry = () => {
@@ -35,7 +37,6 @@ const movieSchema = new mongoose.Schema(
 
 const personnelSchema = new mongoose.Schema(
   {
-    _id: 'ObjectId',
     name: 'string',
     thumbnail_url: 'string',
   }
@@ -52,18 +53,61 @@ const Personnel = mongoose.model('Personnel', personnelSchema);
  * QUERIES *
  ***********/
 
+/* **** Personnel ***** */
+
 const getPersonnel = (id) => {
   return Movie.find().where('personnel._id').equals(id).exec();
 };
 
+
+const addPersonnel = (personnelObj) => {
+  return Personnel.create(personnelObj);
+};
+
+const udpatePersonnel = (filter, update) => {
+  return Personnel.findOneAndUpdate(filter, update, {
+    new: true,
+    useFindAndModify: false,
+  });
+};
+
+const removePersonnel = (name) => {
+  return Personnel.deleteOne({ name }).exec();
+};
+
+/* **** Movies **** */
+
 const getMovies = (id) => {
   return Movie.find().where('id').equals(id).populate('personnel._id').exec();
 };
+
+const updateMovies = (filter, update) => {
+  return Personnel.findOneAndUpdate(filter, update, {
+    new: true,
+    useFindAndModify: false,
+  });
+};
+
+const addMovies = (movieObj) => {
+  return Movie.create(movieObj);
+};
+
+const removeMovies = (title) => {
+  return Movie.deleteOne({ title }).exec();
+};
+
 
 /* Export schemas for testing and seeding the database */
 module.exports = {
   Movie,
   Personnel,
   getMovies,
-  getPersonnel
+  getPersonnel,
+  addPersonnel,
+  removePersonnel,
+  removeMovies,
+  personnelSchema,
+  addMovies,
+  udpatePersonnel,
+  updateMovies,
 };

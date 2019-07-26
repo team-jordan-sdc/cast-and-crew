@@ -7,5 +7,5 @@ module.exports = {
 
   dates: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 
-  ratings:['PG-13', 'R', 'TV-PG', 'NR', 'PG']
+  ratings: ['PG-13', 'R', 'TV-PG', 'NR', 'PG']
 };

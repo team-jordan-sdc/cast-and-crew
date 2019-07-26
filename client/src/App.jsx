@@ -36,8 +36,8 @@ class App extends React.Component {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
-    .then(results => results.json())
-    .then(results => this.setState({featuredPersonnel: results, selectedPersonnel: id.name}))
+      .then(results => results.json())
+      .then(results => this.setState({featuredPersonnel: results, selectedPersonnel: id.name}));
   }
 
   render() {

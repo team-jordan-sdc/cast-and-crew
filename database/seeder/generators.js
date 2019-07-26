@@ -15,13 +15,11 @@ const generatePersonnelForMovies = (max, personnelList) => {
 
 module.exports.fakePersonnel = () => {
   let fakePersonnel = [];
-  var count = 1;
   for (let actor of data.actors) {
     fakePersonnel.push({
       name: actor,
-      thumbnail_url: `https://fec1-arwen.s3.amazonaws.com/headshots/headshot${count}.jpeg`,
+      thumbnail_url: `https://sdc1-cast-and-crew.s3-us-west-1.amazonaws.com/personnel${getRandomNum(49) + 1}.jpg`,
     });
-    count < 16 && count++;
   }
   return fakePersonnel;
 };
@@ -35,7 +33,7 @@ module.exports.fakeMovie = (personnelList) => {
     rating: data.ratings[getRandomNum(5)],
     rt_rating: getRandomNum(101),
     price: `$${getRandomNum(30) + 1}.99`,
-    thumbnail_url: `https://fec1-arwen.s3.amazonaws.com/thumbnails/movie_thumbnail${getRandomNum(46) + 1}.jpeg`,
+    thumbnail_url: `https://sdc1-cast-and-crew.s3-us-west-1.amazonaws.com/movie${getRandomNum(49) + 1}.jpg`,
     personnel: generatePersonnelForMovies(21, personnelList)
   };
 };
