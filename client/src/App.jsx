@@ -32,11 +32,14 @@ class App extends React.Component {
   }
 
   getPersonnelInfo(id) {
+    // id is a personnel object
+    // returns an array of movies associated with personnel
     fetch(`/api/personnel?id=${id._id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
       .then(results => results.json())
+        // featuredPersonnel === list of movies associated with personnel
       .then(results => this.setState({featuredPersonnel: results, selectedPersonnel: id.name}));
   }
 

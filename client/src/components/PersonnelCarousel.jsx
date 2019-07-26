@@ -9,7 +9,7 @@ class PersonnelCarousel extends React.Component {
     super(props);
     this.state = {
       position: 0,
-      personnel: {},
+      // personnel: {},
     }
     this.moveForward = this.moveForward.bind(this);
     this.moveBackward = this.moveBackward.bind(this);

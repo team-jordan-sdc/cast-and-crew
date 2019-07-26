@@ -11,7 +11,7 @@ const generatePersonnelForMovies = (max, personnelList) => {
     results.push({ _id: personnelList[getRandomNum(max)], role: data.roles[getRandomNum(19)] });
   }
   return results;
-}; /***********************************/
+};
 
 module.exports.fakePersonnel = () => {
   let fakePersonnel = [];
