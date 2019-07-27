@@ -47,6 +47,7 @@ app.put('/api/personnel', (req, res) => {
 
 /* ************** Movies Routes ****************** */
 
+// get movies for a single cast member is a part of
 app.get('/api/movies', (req, res) => {
   db.getMovies(Number(req.query.id))
     .then(results => res.send(results[0]))
