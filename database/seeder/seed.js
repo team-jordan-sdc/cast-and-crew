@@ -14,7 +14,7 @@ const seed = async () => {
   await db.Personnel.insertMany(fakePersonnel());
   const personnelList = await db.Personnel.find().distinct('_id').exec();
 
-  return new Promise(resolve => { //we want async nature for our tests
+  return new Promise(resolve => { // we want async nature for our tests
 
     for (let i = 1; i <= 100; i++) {
       let currentMovie = new db.Movie(fakeMovie(personnelList));
@@ -31,6 +31,6 @@ const seed = async () => {
     }
 
   });
-};/**********************************/
+};
 
 module.exports.seed = seed;
