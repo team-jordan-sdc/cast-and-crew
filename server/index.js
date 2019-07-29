@@ -1,6 +1,5 @@
 const express = require('express');
 const db = require('../database/index.js');
-const { getRandomNum } = require('../database/seeder/generators.js');
 
 const app = express();
 const PORT = 3000;
@@ -11,7 +10,7 @@ app.use((req, res, next) => {
 });
 
 app.use('*.js', (req, res, next) => {
-  req.url = req.url + '.gz';
+  req.url += '.gz';
   res.set('Content-Encoding', 'gzip');
   next();
 });
