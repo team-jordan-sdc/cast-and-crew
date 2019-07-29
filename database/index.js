@@ -19,15 +19,46 @@ knex.schema.createTable('movies', (table) => {
   table.string('price');
   table.string('thumbnail_url');
   table.json('personnel');
-}).catch(err => console.log(err))
+}).catch(err => console.log(err));
 
 knex.schema.createTable('personnel', (table) => {
   table.increments();
   table.string('name');
   table.string('thumbnail_url');
-}).catch(err => console.log(err))
+}).catch(err => console.log(err));
 
 // CRUD Routes
+
+// Read
+const getMovieById = (id) => {
+  knex.select().table('movies').where({ id });
+};
+
+const getPersonnelById = (id) => {
+  knex.select().table('personnel').where({ id });
+};
+
+const getRelatedPersonnel = (movieId) => {
+  knex.raw(`SELECT * unnest(Movies.personnel) AS currentPersonnel
+              INNER JOIN Personnel
+              WHERE currentPersonnel.id = Personnel.id`);
+};
+
+const getRelatedMovies = (personnelId) => {
+  // 10 million movies fml
+  // where movie.id contains
+};
+
+// Create
+
+// Update
+
+// Delete
+
+module.exports = {
+  getMovieById,
+  getPersonnelById,
+};
 
 // ////// Get related personnel ////////
 // SELECT * unnest(Movies.personnel) AS currentPersonnel     <<-- is this correct way of unnesting?
@@ -37,7 +68,7 @@ knex.schema.createTable('personnel', (table) => {
 
 // ///// Get related movies /////////////
 // populate foreign key with object just like mongo?
-  // use join -- select * from personnel where id = ??
+// use join -- select * from personnel where id = ??
 // nested queries
 // inner join on movie, unnest array, inner join on array
 
