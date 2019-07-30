@@ -1,5 +1,3 @@
-const { generateFakeMovie } = require('./seeder3.0/seed.js');
-
 const knex = require('knex')({
   client: 'pg',
   connection: {
@@ -10,29 +8,41 @@ const knex = require('knex')({
   }
 });
 
-knex.schema.createTable('movies', (table) => {
-  table.increments();
-  table.string('title', 500);
-  table.string('release_date');
-  table.string('vudu_rating');
-  table.string('runtime');
-  table.string('rating');
-  table.string('rt_rating');
-  table.string('price');
-  table.string('thumbnail_url');
-  table.json('personnel');
+knex.schema.hasTable('movies').then((exists) => {
+  if (!exists) {
+    knex.schema.createTable('movies', (table) => {
+      table.increments();
+      table.string('title', 500);
+      table.string('release_date');
+      table.string('vudu_rating');
+      table.string('runtime');
+      table.string('rating');
+      table.string('rt_rating');
+      table.string('price');
+      table.string('thumbnail_url');
+      table.json('personnel');
+    }).catch(err => console.log(err));
+  }
 }).catch(err => console.log(err));
 
-knex.schema.createTable('movies_personnel', (table) => {
-  table.integer('movie_id');
-  table.integer('personnel_id');
-  table.string('role');
+knex.schema.hasTable('movies_personnel').then((exists) => {
+  if (!exists) {
+    knex.schema.createTable('movies_personnel', (table) => {
+      table.integer('movie_id');
+      table.integer('personnel_id');
+      table.string('role');
+    }).catch(err => console.log(err));
+  }
 }).catch(err => console.log(err));
 
-knex.schema.createTable('personnel', (table) => {
-  table.increments();
-  table.string('name');
-  table.string('thumbnail_url');
+knex.schema.hasTable('movies').then((exists) => {
+  if (!exists) {
+    knex.schema.createTable('personnel', (table) => {
+      table.increments();
+      table.string('name');
+      table.string('thumbnail_url');
+    }).catch(err => console.log(err));
+  }
 }).catch(err => console.log(err));
 
 // CRUD Routes
@@ -67,8 +77,18 @@ const getRelatedMovies = (personnelId) => {
 };
 
 // Create
-const addMovieEntry = () => {
-  knex('movies').insert(generateFakeMovie());
+const addMovieEntry = (movieObj) => {
+  return knex('movies').insert(movieObj);
+  // add entries to junction table?
+};
+
+const addPersonnelEntry = (movieObj) => {
+  return knex('personnel').insert(movieObj);
+  // add entries to junction table?
+};
+
+const addRelationEntry = (movieId, personnelId) => {
+  return knex('movies_personnel').insert({ movie_id: movieId, personnel_id: personnelId})
 };
 
 // Update
@@ -81,6 +101,7 @@ module.exports = {
   getRelatedPersonnel,
   getRelatedMovies,
   addMovieEntry,
+  addPersonnelEntry
 };
 
 // ////// Get related personnel ////////
