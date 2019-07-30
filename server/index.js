@@ -21,54 +21,64 @@ app.use(express.json());
 /* ******** Personnel Routes ***************** */
 
 app.get('/api/personnel', (req, res) => {
-  db.getPersonnel(req.query.id)
-    .then(results => res.send(results))
-    .catch(err => console.log(err));
-});
-
-app.delete('/api/personnel', (req, res) => {
-  db.removePersonnel(req.body.name)
-    .then(results => res.send(results))
-    .catch(err => console.log(err));
+  // find related personnel for a given movie id
+  db.getRelatedPersonnel(Number(req.query.id))
+    .then(results => res.send(results.rows))
+    .catch(error => console.log(error));
 });
 
 app.post('/api/personnel', (req, res) => {
-  db.addPersonnel(req.body)
+  // add personnel from req.body
+  db.addPersonnelEntry(req.body)
     .then(results => res.send(results))
-    .catch(err => console.log(err));
+    .catch(error => console.log(error));
+});
+
+app.delete('/api/personnel', (req, res) => {
+  // delete personnel entry by id from req.body.id
+
+  // CASCADE DELETE?
+
+  // db.removePersonnel(req.body.name)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
 });
 
 app.put('/api/personnel', (req, res) => {
-  db.udpatePersonnel(req.body.filter, req.body.update)
-    .then(results => res.send(results))
-    .catch(err => console.log(err));
+  // db.udpatePersonnel(req.body.filter, req.body.update)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
 });
 
 /* ************** Movies Routes ****************** */
 
-// get movies for a single cast member is a part of
 app.get('/api/movies', (req, res) => {
-  db.getMovies(Number(req.query.id))
-    .then(results => res.send(results[0]))
+  // find related movies for a given personnel id
+  db.getRelatedMovies(Number(req.query.id))
+    .then(results => res.send(results.rows))
     .catch(err => console.log(err));
 });
 
 app.post('/api/movies', (req, res) => {
-  db.addMovies(req.body)
+  db.addMovieEntry(req.body)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
 app.delete('/api/movies', (req, res) => {
-  db.removeMovies(req.body.title)
-    .then(results => res.send(results))
-    .catch(err => console.log(err));
+  // delete movie by id from req.body.id
+
+  // CASCADE DELETE?
+
+  // db.removeMovies(req.body.title)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
 });
 
 app.put('/api/movies', (req, res) => {
-  db.updateMovies(req.body.filter, req.body.update)
-    .then(results => res.send(results))
-    .catch(err => console.log(err));
+  // db.updateMovies(req.body.filter, req.body.update)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
 });
 
 app.listen(PORT, () => `Listening on port ${PORT}!`);
