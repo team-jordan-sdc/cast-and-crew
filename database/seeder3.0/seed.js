@@ -31,7 +31,7 @@ const generateMoviePersonnelRelation = movieId => ({
   // 10-15 cast members per movie
   // 100 cast id's
   movie_id: movieId,
-  personnel_id: getRandomNum(99) + 1,
+  personnel_id: getRandomNum(9999) + 1,
   role: faker.name.findName(),
 });
 
@@ -82,7 +82,7 @@ const seed = async () => {
   await knex.raw('TRUNCATE TABLE personnel RESTART IDENTITY CASCADE');
   let fakePersonnel = [];
 
-  for (let i = 1; i <= 100; i++) {
+  for (let i = 1; i <= 10000; i++) {
     fakePersonnel.push(generateSinglePersonnel());
     await knex('personnel').insert(fakePersonnel);
     // batch insert?
@@ -112,7 +112,7 @@ const seed = async () => {
   console.timeEnd('seed');
 };
 
-seed();
+// seed();
 
 module.exports = {
   generateFakeMovie,
