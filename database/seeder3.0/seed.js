@@ -27,13 +27,21 @@ const generateSinglePersonnel = () => ({
   thumbnail_url: `https://sdc1-cast-and-crew.s3-us-west-1.amazonaws.com/personnel${getRandomNum(49) + 1}.jpg`,
 });
 
-const generateMoviePersonnel = () => {
-  const moviePersonnel = [];
-  for (let i = 0; i <= getRandomNum(12) + 10; i++) {
-    moviePersonnel.push({ id: getRandomNum(99) + 1, role: faker.name.findName() });
-  }
-  return moviePersonnel;
-};
+const generateMoviePersonnelRelation = movieId => ({
+  // 10-15 cast members per movie
+  // 100 cast id's
+  movie_id: movieId,
+  personnel_id: getRandomNum(99) + 1,
+  role: faker.name.findName(),
+});
+
+// const generateMoviePersonnel = () => {
+//   const moviePersonnel = [];
+//   for (let i = 0; i <= getRandomNum(12) + 10; i++) {
+//     moviePersonnel.push({ id: getRandomNum(99) + 1, role: faker.name.findName() });
+//   }
+//   return moviePersonnel;
+// };
 
 const generateFakeMovie = () => ({
   title: faker.commerce.productName(),
@@ -44,17 +52,26 @@ const generateFakeMovie = () => ({
   rt_rating: getRandomNum(100),
   price: `$${getRandomNum(30)}.99`,
   thumbnail_url: `https://sdc1-cast-and-crew.s3-us-west-1.amazonaws.com/movie${getRandomNum(49) + 1}.jpg`,
-  personnel: JSON.stringify(generateMoviePersonnel()),
+  // personnel: JSON.stringify(generateMoviePersonnel()),
 });
 
 /* *********** Seeding function ********** */
 
 const seed = async () => {
+  let moviesCompletion = 0;
+  let relationCompletion = 0;
+
   console.time('seed');
   await knex.raw('TRUNCATE TABLE movies RESTART IDENTITY CASCADE');
   let fakeMovies = [];
   for (let i = 1; i <= 10000000; i++) {
     fakeMovies.push(generateFakeMovie());
+
+    if (i % 2500000 === 0) {
+      moviesCompletion += 25;
+      console.log(`movies ${moviesCompletion}% seeded`);
+    }
+
     if (i % 1000 === 0) {
       await knex('movies').insert(fakeMovies);
       // batch insert?
@@ -64,13 +81,39 @@ const seed = async () => {
 
   await knex.raw('TRUNCATE TABLE personnel RESTART IDENTITY CASCADE');
   let fakePersonnel = [];
+
   for (let i = 1; i <= 100; i++) {
     fakePersonnel.push(generateSinglePersonnel());
     await knex('personnel').insert(fakePersonnel);
     // batch insert?
     fakePersonnel = [];
   }
+  console.log('personnel 100% seeded');
+
+  // 10-15 personnel_id's per movie_id
+  await knex.raw('TRUNCATE TABLE movies_personnel RESTART IDENTITY CASCADE');
+  let moviePersonnelRelations = [];
+  for (let i = 1; i <= 10000000; i++) {
+    if (i % 2500000 === 0) {
+      relationCompletion += 25;
+      console.log(`relations ${relationCompletion}% seeded`);
+    }
+    // starting with movie id #1
+    for (let k = 1; k < getRandomNum(5) + 5; k++) {
+      // insert random number (k) of random personnel_id
+      moviePersonnelRelations.push(generateMoviePersonnelRelation(i));
+    }
+    if (i % 1000 === 0) {
+      await knex('movies_personnel').insert(moviePersonnelRelations);
+      moviePersonnelRelations = [];
+    }
+  }
+
   console.timeEnd('seed');
 };
 
 seed();
+
+module.exports = {
+  generateFakeMovie,
+};
