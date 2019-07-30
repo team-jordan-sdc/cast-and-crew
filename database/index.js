@@ -1,3 +1,5 @@
+const { generateFakeMovie } = require('./seeder3.0/seed.js');
+
 const knex = require('knex')({
   client: 'pg',
   connection: {
@@ -21,6 +23,12 @@ knex.schema.createTable('movies', (table) => {
   table.json('personnel');
 }).catch(err => console.log(err));
 
+knex.schema.createTable('movies_personnel', (table) => {
+  table.integer('movie_id');
+  table.integer('personnel_id');
+  table.string('role');
+}).catch(err => console.log(err));
+
 knex.schema.createTable('personnel', (table) => {
   table.increments();
   table.string('name');
@@ -31,7 +39,7 @@ knex.schema.createTable('personnel', (table) => {
 
 // Read
 const getMovieById = (id) => {
-  knex.select().table('movies').where({ id });
+  return knex.select().table('movies').where({ id });
 };
 
 const getPersonnelById = (id) => {
@@ -39,17 +47,29 @@ const getPersonnelById = (id) => {
 };
 
 const getRelatedPersonnel = (movieId) => {
-  knex.raw(`SELECT * unnest(Movies.personnel) AS currentPersonnel
-              INNER JOIN Personnel
-              WHERE currentPersonnel.id = Personnel.id`);
+  return knex.raw(`
+  SELECT personnel.name, movies_personnel.role, personnel.thumbnail_url
+  FROM movies_personnel
+    JOIN movies ON movies.id = movies_personnel.movie_id
+    JOIN personnel ON personnel.id = movies_personnel.personnel_id
+  WHERE movies_personnel.movie_id = ${movieId};
+  `);
 };
 
 const getRelatedMovies = (personnelId) => {
-  // 10 million movies fml
-  // where movie.id contains
+  return knex.raw(`
+  SELECT movies.title, movies.thumbnail_url
+  FROM movies_personnel
+    JOIN movies ON movies.id = movies_personnel.movie_id
+    JOIN personnel ON personnel.id = movies_personnel.personnel_id
+  WHERE movies_personnel.personnel_id = ${personnelId}
+  ;`);
 };
 
 // Create
+const addMovieEntry = () => {
+  knex('movies').insert(generateFakeMovie());
+};
 
 // Update
 
@@ -58,6 +78,9 @@ const getRelatedMovies = (personnelId) => {
 module.exports = {
   getMovieById,
   getPersonnelById,
+  getRelatedPersonnel,
+  getRelatedMovies,
+  addMovieEntry,
 };
 
 // ////// Get related personnel ////////
