@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonnelCarousel from './components/PersonnelCarousel.jsx';
 import MoviesCarousel from './components/MoviesCarousel.jsx';
-import {Main} from './styling.jsx';
+import { Main } from './styling.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,9 +15,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let qs = new URLSearchParams(window.location.search);
-    let res = qs.get('id');
-    let search = res ? res : 1;
+    const qs = new URLSearchParams(window.location.search);
+    const res = qs.get('id');
+    const search = res || 1;
     this.getFeaturedMovie(search);
   }
 
@@ -28,9 +28,10 @@ class App extends React.Component {
     })
       .then(results => results.json())
       .then(results => this.setState({ featuredMovie: results }))
-      .then(() => this.setState({personnel: this.state.featuredMovie.personnel}));
+      .then(() => this.setState({ personnel: this.state.featuredMovie.personnel }));
   }
 
+  // return ARRAY OF MOVIES associated with personnel
   getPersonnelInfo(id) {
     // id is a personnel object
     // returns an array of movies associated with personnel
@@ -39,23 +40,21 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(results => results.json())
-        // featuredPersonnel === list of movies associated with personnel
-      .then(results => this.setState({featuredPersonnel: results, selectedPersonnel: id.name}));
+    // featuredPersonnel === list of movies associated with personnel
+      .then(results => this.setState({ featuredPersonnel: results, selectedPersonnel: id.name }));
   }
 
   render() {
     if (!this.state.personnel.length) {
-      return <div>Loading...</div>
-    } else {
-      return (
-        <Main>
-          <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)} />
-          <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel} />
-        </Main>
-      )
+      return <div>Loading...</div>;
     }
+    return (
+      <Main>
+        <PersonnelCarousel personnel={this.state.personnel} movie={this.state.featuredMovie} set={this.getPersonnelInfo.bind(this)} />
+        <MoviesCarousel featuredPersonnel={this.state.featuredPersonnel} selectedPersonnel={this.state.selectedPersonnel} />
+      </Main>
+    );
   }
-
 }
 
 export default App;
