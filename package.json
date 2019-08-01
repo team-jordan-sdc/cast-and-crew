@@ -8,7 +8,8 @@
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "webpack": "webpack -d",
-    "seed": "node ./database/seeder3.0/seed.js"
+    "seed:postgres": "node ./database/postgres/seed.js",
+    "seed:cassandra":"node ./database/cassandra/cassandraSeed.js"
   },
   "repository": {
     "type": "git",

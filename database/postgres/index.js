@@ -11,7 +11,7 @@ const knex = require('knex')({
 knex.schema.hasTable('movies').then((exists) => {
   if (!exists) {
     knex.schema.createTable('movies', (table) => {
-      table.increments();
+      table.increments(); // increments + sets as primary id
       table.string('title', 500);
       table.string('release_date');
       table.string('vudu_rating');
@@ -20,7 +20,7 @@ knex.schema.hasTable('movies').then((exists) => {
       table.string('rt_rating');
       table.string('price');
       table.string('thumbnail_url');
-      table.json('personnel');
+      // TODO: add onDelete('CASCADE') to id
     }).catch(err => console.log(err));
   }
 }).catch(err => console.log(err));
@@ -31,14 +31,18 @@ knex.schema.hasTable('movies_personnel').then((exists) => {
       table.integer('movie_id');
       table.integer('personnel_id');
       table.string('role');
+      table.foreign('movie_id').references('id').inTable('movies');
+      table.foreign('personnel_id').references('id').inTable('personnel');
+      table.index('movie_id', 'personnel_id');
     }).catch(err => console.log(err));
   }
 }).catch(err => console.log(err));
 
-knex.schema.hasTable('movies').then((exists) => {
+knex.schema.hasTable('personnel').then((exists) => {
   if (!exists) {
     knex.schema.createTable('personnel', (table) => {
-      table.increments();
+      table.increments(); // increments + sets as primary id
+      // TODO: add onDelete('CASCADE') to id
       table.string('name');
       table.string('thumbnail_url');
     }).catch(err => console.log(err));
@@ -62,8 +66,8 @@ const getRelatedPersonnel = (movieId) => {
   FROM movies_personnel
     JOIN movies ON movies.id = movies_personnel.movie_id
     JOIN personnel ON personnel.id = movies_personnel.personnel_id
-  WHERE movies_personnel.movie_id = ${movieId};
-  `);
+  WHERE movies_personnel.movie_id = ${movieId}
+  ;`);
 };
 
 const getRelatedMovies = (personnelId) => {
@@ -88,12 +92,19 @@ const addPersonnelEntry = (movieObj) => {
 };
 
 const addRelationEntry = (movieId, personnelId) => {
-  return knex('movies_personnel').insert({ movie_id: movieId, personnel_id: personnelId})
+  return knex('movies_personnel').insert({ movie_id: movieId, personnel_id: personnelId });
 };
 
 // Update
 
 // Delete
+const deletePersonnelById = (personnelId) => {
+  knex('personnel').where({ id: personnelId }).del();
+};
+
+const deleteRelation = (movieId, personnelId) => {
+  knex('movies_personnel').where({ movie_id: movieId, personnel_id: personnelId });
+};
 
 module.exports = {
   getMovieById,
@@ -101,7 +112,9 @@ module.exports = {
   getRelatedPersonnel,
   getRelatedMovies,
   addMovieEntry,
-  addPersonnelEntry
+  addPersonnelEntry,
+  addRelationEntry,
+  deletePersonnelById,
 };
 
 // ////// Get related personnel ////////
