@@ -9,8 +9,8 @@ class App extends React.Component {
     this.state = {
       personnel: [],
       featuredMovie: {},
-      featuredPersonnel: null,
-      selectedPersonnel: null
+      featuredPersonnel: null, // array of movies
+      selectedPersonnel: null // string -- name
     };
   }
 
@@ -22,6 +22,8 @@ class App extends React.Component {
   }
 
   getFeaturedMovie(qs) {
+    // respond with exactly the same as original
+    // movie obj with a personnel property ==> [] of related personnel obj
     return fetch(`/api/movies?id=${qs}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -31,17 +33,17 @@ class App extends React.Component {
       .then(() => this.setState({ personnel: this.state.featuredMovie.personnel }));
   }
 
-  // return ARRAY OF MOVIES associated with personnel
-  getPersonnelInfo(id) {
-    // id is a personnel object
+  // AKA "set" prop passed down to PersonnelCarousel
+  getPersonnelInfo(personnelObj) { // used to be getPersonnelInfo(id) where id was an obj
     // returns an array of movies associated with personnel
-    fetch(`/api/personnel?id=${id._id}`, {
+    fetch(`/api/personnel?id=${personnelObj.id}`, {
+      // used to be fetch(`/api/personnel?id=${id._id}`
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     })
       .then(results => results.json())
     // featuredPersonnel === list of movies associated with personnel
-      .then(results => this.setState({ featuredPersonnel: results, selectedPersonnel: id.name }));
+      .then(results => this.setState({ featuredPersonnel: results.movies, selectedPersonnel: personnelObj.name }));
   }
 
   render() {
