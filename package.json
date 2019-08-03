@@ -9,7 +9,7 @@
     "react-dev": "webpack -d --watch",
     "webpack": "webpack -d",
     "seed:postgres": "node ./database/postgres/seed.js",
-    "seed:cassandra":"node ./database/cassandra/cassandraSeed.js"
+    "seed:cassandra": "node ./database/cassandra/cassandraSeed.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "jsdom": "^15.1.1",
     "knex": "^0.19.1",
     "mongoose": "^5.6.3",
+    "newrelic": "^5.11.0",
     "pg": "^7.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
