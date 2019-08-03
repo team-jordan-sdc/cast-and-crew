@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const db = require('../database/postgres/index.js');
 
@@ -18,14 +19,49 @@ app.use('*.js', (req, res, next) => {
 app.use(express.static('./client/dist'));
 app.use(express.json());
 
-/* ******** Personnel Routes ***************** */
+/* ******** Get Routes ***************** */
 
-app.get('/api/personnel', (req, res) => {
-  // find related personnel for a given movie id
-  db.getRelatedPersonnel(Number(req.query.id))
-    .then(results => res.send(results.rows))
-    .catch(error => console.log(error));
+app.get('/api/movies', async (req, res) => {
+  console.log('Received GET at /api/movies');
+  // find one movie object,
+  // find related personnel,
+  // populate movie object with personnel list.
+  let movie;
+  await db.getMovieById(Number(req.query.id))
+    .then((results) => {
+      movie = results[0];
+    })
+    .catch(err => console.error(err));
+
+  await db.getRelatedPersonnel(Number(req.query.id))
+    .then((results) => {
+      movie.personnel = results.rows;
+      res.send(movie);
+    })
+    .catch(err => console.error(err));
 });
+
+app.get('/api/personnel', async (req, res) => {
+  // return personnel with movies property filled with related movies
+  // find one personnel object,
+  // find related movies,
+  // populate personnel object with movie list
+  let personnel = {};
+  await db.getPersonnelById(Number(req.query.id))
+    .then((results) => {
+      personnel = results[0];
+    })
+    .catch(err => console.error(err));
+
+  await db.getRelatedMovies(Number(req.query.id))
+    .then((results) => {
+      personnel.movies = results.rows;
+      res.send(personnel);
+    })
+    .catch(err => console.error(err));
+});
+
+/* ****** Post routes ****** */
 
 app.post('/api/personnel', (req, res) => {
   // add personnel from req.body
@@ -34,43 +70,38 @@ app.post('/api/personnel', (req, res) => {
     .catch(error => console.log(error));
 });
 
-app.delete('/api/personnel', (req, res) => {
-  // delete personnel entry by id from req.body.id
-
-  // CASCADE DELETE?
-
-  // db.removePersonnel(req.body.name)
-  //   .then(results => res.send(results))
-  //   .catch(err => console.log(err));
-});
-
-app.put('/api/personnel', (req, res) => {
-  // db.udpatePersonnel(req.body.filter, req.body.update)
-  //   .then(results => res.send(results))
-  //   .catch(err => console.log(err));
-});
-
-/* ************** Movies Routes ****************** */
-
-app.get('/api/movies', (req, res) => {
-  // find related movies for a given personnel id
-  db.getRelatedMovies(Number(req.query.id))
-    .then(results => res.send(results.rows))
-    .catch(err => console.log(err));
-});
-
 app.post('/api/movies', (req, res) => {
   db.addMovieEntry(req.body)
     .then(results => res.send(results))
     .catch(err => console.log(err));
 });
 
+/* *** Delete Routes *** */
+
+app.delete('/api/personnel', (req, res) => {
+  // delete personnel entry by id from req.body.id
+
+  // TODO: Set up cascade delete in db
+
+  // db.removePersonnel(req.body.name)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
+});
+
 app.delete('/api/movies', (req, res) => {
   // delete movie by id from req.body.id
 
-  // CASCADE DELETE?
+  // TODO: Set up cascade delete in db
 
   // db.removeMovies(req.body.title)
+  //   .then(results => res.send(results))
+  //   .catch(err => console.log(err));
+});
+
+/* *** Update Routes *** */
+
+app.put('/api/personnel', (req, res) => {
+  // db.udpatePersonnel(req.body.filter, req.body.update)
   //   .then(results => res.send(results))
   //   .catch(err => console.log(err));
 });
