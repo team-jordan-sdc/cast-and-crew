@@ -34,6 +34,7 @@ knex.schema.hasTable('movies_personnel').then((exists) => {
       table.foreign('movie_id').references('id').inTable('movies');
       table.foreign('personnel_id').references('id').inTable('personnel');
       table.index('movie_id', 'personnel_id');
+      table.index('personnel_id', 'movie_id');
     }).catch(err => console.log(err));
   }
 }).catch(err => console.log(err));
@@ -57,12 +58,12 @@ const getMovieById = (id) => {
 };
 
 const getPersonnelById = (id) => {
-  knex.select().table('personnel').where({ id });
+  return knex.select().table('personnel').where({ id });
 };
 
 const getRelatedPersonnel = (movieId) => {
   return knex.raw(`
-  SELECT personnel.name, movies_personnel.role, personnel.thumbnail_url
+  SELECT personnel.name, personnel.id, movies_personnel.role, personnel.thumbnail_url
   FROM movies_personnel
     JOIN movies ON movies.id = movies_personnel.movie_id
     JOIN personnel ON personnel.id = movies_personnel.personnel_id
@@ -72,7 +73,7 @@ const getRelatedPersonnel = (movieId) => {
 
 const getRelatedMovies = (personnelId) => {
   return knex.raw(`
-  SELECT movies.title, movies.thumbnail_url
+  SELECT movies.title, movies.thumbnail_url, movies.release_date, movies.rating, movies.runtime, movies.vudu_rating, movies.rt_rating, movies.price
   FROM movies_personnel
     JOIN movies ON movies.id = movies_personnel.movie_id
     JOIN personnel ON personnel.id = movies_personnel.personnel_id
