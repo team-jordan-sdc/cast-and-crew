@@ -9,6 +9,8 @@ const knex = require('knex')({
   }
 });
 
+// NOTE: use CSV seed instead
+
 /* *********** Seeding function ********** */
 
 const seed = async () => {
@@ -56,8 +58,8 @@ const seed = async () => {
   await knex.raw('TRUNCATE TABLE movies_personnel RESTART IDENTITY CASCADE');
   let moviePersonnelRelations = [];
   for (let i = 1; i <= 10000000; i++) {
-    if (i % 2500000 === 0) {
-      relationCompletion += 25;
+    if (i % 1000000 === 0) {
+      relationCompletion += 10;
       console.log(`relations ${relationCompletion}% seeded`);
     }
     // starting with movie id #1

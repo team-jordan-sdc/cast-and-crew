@@ -1,6 +1,8 @@
 FROM node:8-jessie
+
+## LEGACY DOCKERFILE ##
 WORKDIR /app
-COPY package.json .
+COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000

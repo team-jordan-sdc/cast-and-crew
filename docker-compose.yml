@@ -1,11 +1,13 @@
 version: '3.7'
 
-services:
+# DATABASE_URL: postgres://username:pgpassword@db:5432/mydatabasee
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    restart: always
+services:
+  # postgres running on its own ec2 instead
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo
+  #   restart: always
 
   cast-and-crew:
     build:

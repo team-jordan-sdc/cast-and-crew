@@ -38,4 +38,6 @@ module.exports = {
   generateSinglePersonnel,
   generateMoviePersonnelRelation,
   generateFakeMovie,
+  dates,
+  ratings,
 };

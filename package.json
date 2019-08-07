@@ -6,10 +6,13 @@
   "scripts": {
     "test": "jest",
     "server-dev": "nodemon server/index.js",
+    "server-prod": "pm2 start server/index.js",
     "react-dev": "webpack -d --watch",
+    "react-prod": "webpack -d",
     "webpack": "webpack -d",
-    "seed:postgres": "node ./database/postgres/seed.js",
-    "seed:cassandra": "node ./database/cassandra/cassandraSeed.js"
+    "seed:postgres": "node ./database/postgres/seed/seed.js",
+    "seed:cassandra": "node ./database/cassandra/cassandraSeed.js",
+    "csvGenerator": "node ./database/postgres/seed/csvGenerator.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +30,7 @@
     "bluebird": "^3.5.5",
     "cassandra-driver": "^4.1.0",
     "compression-webpack-plugin": "^3.0.0",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "jsdom": "^15.1.1",
