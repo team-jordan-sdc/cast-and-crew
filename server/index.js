@@ -1,9 +1,10 @@
 require('newrelic');
+require('dotenv').config();
 const express = require('express');
 const db = require('../database/postgres/index.js');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.EXPRESS_PORT;
 
 app.use((req, res, next) => {
   res.set('Cache-Control', 'public, max-age=31557600');
@@ -22,7 +23,6 @@ app.use(express.json());
 /* ******** Get Routes ***************** */
 
 app.get('/api/movies', async (req, res) => {
-  console.log('Received GET at /api/movies');
   // find one movie object,
   // find related personnel,
   // populate movie object with personnel list.
