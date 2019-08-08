@@ -14,6 +14,7 @@ app.use((req, res, next) => {
 app.use('*.js', (req, res, next) => {
   req.url += '.gz';
   res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'application/javascript');
   next();
 });
 
