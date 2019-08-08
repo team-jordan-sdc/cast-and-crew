@@ -10,13 +10,13 @@ app.use((req, res, next) => {
   res.set('Cache-Control', 'public, max-age=31557600');
   next();
 });
-
+/*
 app.use('*.js', (req, res, next) => {
   req.url += '.gz';
   res.set('Content-Encoding', 'gzip');
   next();
 });
-
+*/
 app.use(express.static('./client/dist'));
 app.use(express.json());
 
